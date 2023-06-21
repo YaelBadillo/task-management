@@ -3,7 +3,7 @@ import 'reflect-metadata'
 import './typedi.config'
 
 import { App } from './App'
-import { MongooseClientFactory } from './mongoose'
+import { MongooseClientFactory } from './utils/mongoose'
 import { config } from './config'
 
 try {
@@ -14,11 +14,11 @@ try {
 }
 
 process.on('uncaughtException', err => {
-  console.log('uncaughtException', err)
+  console.error('uncaughtException', err)
   process.exit(1)
 })
 
 function handleError(e: any) {
-  console.log(e)
+  console.error(e)
   process.exit(1)
 }
