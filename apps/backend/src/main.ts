@@ -3,9 +3,12 @@ import 'reflect-metadata'
 import './typedi.config'
 
 import { App } from './App'
+import { MongooseClientFactory } from './mongoose'
+import { config } from './config'
 
 try {
   new App().start().catch(handleError)
+  MongooseClientFactory.createClient(config.get('mongodb')).catch(handleError)
 } catch (e) {
   handleError(e)
 }
