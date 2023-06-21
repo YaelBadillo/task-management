@@ -6,6 +6,7 @@ import morgan from 'morgan'
 import Container from 'typedi'
 
 import { Logger, WinstonLogger } from './utils/logger'
+import { registerRoutes } from './routes'
 
 export class Server {
   private readonly express: Express
@@ -18,6 +19,8 @@ export class Server {
 
     this.express.use(morgan('dev'))
     this.express.use(bodyParser.json())
+
+    registerRoutes(this.express)
   }
 
   listen(): Promise<void> {
