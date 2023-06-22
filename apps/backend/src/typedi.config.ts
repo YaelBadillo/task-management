@@ -1,8 +1,8 @@
 import Container from 'typedi'
 
-import { WinstonLogger } from './shared/logger'
+import { WinstonLogger } from './utils/encrypter/logger'
 import { UserModel } from './database/models'
-import { BcryptEncrypter } from './shared/encrypter'
+import { BcryptEncrypter } from './utils/encrypter'
 
 const winstonLogger = Container.get<WinstonLogger>(WinstonLogger)
 Container.set('winston.logger', winstonLogger)
