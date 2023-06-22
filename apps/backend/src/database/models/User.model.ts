@@ -14,4 +14,4 @@ const userSchema = new Schema<IUser>({
   updatedAt: { type: Date, default: Date.now },
 })
 
-export const User = model<IUser>('User', userSchema)
+export const UserModel = model<IUser>('User', userSchema)
