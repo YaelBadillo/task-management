@@ -3,7 +3,7 @@ import 'reflect-metadata'
 import './typedi.config'
 
 import { App } from './App'
-import { MongooseClientFactory } from './utils/mongoose'
+import { MongooseClientFactory } from './shared/mongoose'
 import { config } from './config'
 
 try {

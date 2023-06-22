@@ -1,7 +1,7 @@
 import { Service } from 'typedi'
 
 import { UserRepository } from '../database/repositories'
-import { RegisterUserDto, UserDto } from '../utils/dtos'
+import { RegisterUserDto, UserDto } from '../shared/dtos'
 
 @Service()
 export class UserService {

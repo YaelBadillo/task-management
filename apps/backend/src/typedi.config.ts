@@ -1,6 +1,6 @@
 import Container from 'typedi'
 
-import { WinstonLogger } from './utils/logger'
+import { WinstonLogger } from './shared/logger'
 import { User } from './database/models'
 
 const winstonLogger = Container.get<WinstonLogger>(WinstonLogger)
