@@ -5,7 +5,7 @@ import { MongooseRepository } from './Mongoose.repository'
 import { IUser } from '../models'
 
 interface IUserRepository {
-  registerUser(newUser: IUser): Promise<void>
+  registerUser(newUser: IUser): Promise<IUser | void>
 }
 
 @Service()
@@ -20,10 +20,10 @@ export class UserRepository
     super()
   }
 
-  async registerUser(newUser: IUser): Promise<void> {
+  async registerUser(newUser: IUser): Promise<IUser | void> {
     try {
       const user = new this.model(newUser)
-      await user.save()
+      return await user.save()
     } catch (error) {
       throw new Error('User could not be registered')
     }

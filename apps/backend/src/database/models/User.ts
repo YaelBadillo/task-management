@@ -1,10 +1,10 @@
 import { Document, Schema, model } from 'mongoose'
 
-export interface IUser extends Document {
+export interface IUser {
   name: string
   password: string
-  createdAt: Date
-  updatedAt: Date
+  createdAt?: Date
+  updatedAt?: Date
 }
 
 const userSchema = new Schema<IUser>({
