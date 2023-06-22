@@ -1,6 +1,6 @@
-import { Schema, model } from 'mongoose'
+import { Document, Schema, model } from 'mongoose'
 
-interface IUser {
+export interface IUser extends Document {
   name: string
   password: string
   createdAt: Date
@@ -9,7 +9,7 @@ interface IUser {
 
 const userSchema = new Schema<IUser>({
   name: { type: String, required: true, max: 20 },
-  password: { types: String, required: true, max: 30 },
+  password: { type: String, required: true, max: 30 },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
 })
