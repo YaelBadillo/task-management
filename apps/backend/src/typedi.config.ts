@@ -1,6 +1,6 @@
 import Container from 'typedi'
 
-import { WinstonLogger } from './utils/encrypter/logger'
+import { WinstonLogger } from './utils/logger'
 import { UserModel } from './database/models'
 import { BcryptEncrypter } from './utils/encrypter'
 
