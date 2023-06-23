@@ -2,9 +2,9 @@ import 'reflect-metadata'
 
 import './typedi.config'
 
-import { App } from './App'
-import { MongooseClientFactory } from './shared/mongoose'
-import { config } from './config'
+import { App } from '@app'
+import { MongooseClientFactory } from '@shared/mongoose'
+import { config } from '@config'
 
 try {
   new App().start().catch(handleError)

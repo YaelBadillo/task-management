@@ -1,8 +1,8 @@
 import { Inject, Service } from 'typedi'
 import { Model } from 'mongoose'
 
-import { MongooseRepository } from './Mongoose.repository'
-import { IUser } from '../models'
+import { MongooseRepository } from '@database/repositories/Mongoose.repository'
+import { IUser } from '@database/models'
 
 interface IUserRepository {
   registerUser(newUser: IUser): Promise<IUser | void>

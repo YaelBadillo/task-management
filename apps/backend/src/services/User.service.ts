@@ -1,8 +1,8 @@
 import { Inject, Service } from 'typedi'
 
-import { UserRepository } from '../database/repositories'
-import { RegisterUserDto, UserDto } from '../shared/dtos'
-import { Encrypter } from '../utils/encrypter'
+import { UserRepository } from '@database/repositories'
+import { RegisterUserDto, UserDto } from '@shared/dtos'
+import { Encrypter } from '@utils/encrypter'
 
 @Service()
 export class UserService {

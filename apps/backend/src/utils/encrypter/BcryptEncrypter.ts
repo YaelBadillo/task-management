@@ -1,7 +1,7 @@
 import { Service } from 'typedi'
 import * as bcrypt from 'bcrypt'
 
-import { Encrypter } from './Encrypter'
+import { Encrypter } from '@utils/encrypter'
 
 @Service()
 export class BcryptEncrypter extends Encrypter {

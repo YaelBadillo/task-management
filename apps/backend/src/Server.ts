@@ -5,8 +5,8 @@ import bodyParser from 'body-parser'
 import morgan from 'morgan'
 import Container from 'typedi'
 
-import { Logger, WinstonLogger } from './utils/logger'
-import { registerRoutes } from './routes'
+import { Logger, WinstonLogger } from '@utils/logger'
+import { registerRoutes } from '@routes'
 
 export class Server {
   private readonly express: Express

@@ -4,8 +4,8 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "build": "tsc -p ./tsconfig.json",
-    "start:dev": "nodemon src/main.ts",
+    "build": "tsconfig-paths register --project ./tsconfig.json && tsc -p ./tsconfig.json",
+    "start:dev": "nodemon --exec ts-node -r tsconfig-paths/register src/main.ts",
     "start:prod": "node dist/main",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",

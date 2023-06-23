@@ -2,8 +2,8 @@ import { Request, Response } from 'express'
 import { Service } from 'typedi'
 import httpStatus from 'http-status'
 
-import { UserService } from '../services'
-import { RegisterUserDto } from '../shared/dtos'
+import { UserService } from '@services'
+import { RegisterUserDto } from '@shared/dtos'
 
 interface RegisterUserRequest extends Request {
   body: RegisterUserDto
