@@ -6,7 +6,7 @@ import { IUser } from '@database/models'
 import { InternalServerErrorException } from '@shared/exceptions'
 
 interface IUserRepository {
-  registerUser(newUser: IUser): Promise<IUser | void>
+  registerUser(newUser: IUser): Promise<IUser>
 }
 
 @Service()
