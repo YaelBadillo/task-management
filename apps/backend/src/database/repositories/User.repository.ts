@@ -6,7 +6,7 @@ import { IUser } from '@database/models'
 import { InternalServerErrorException } from '@shared/exceptions'
 
 interface IUserRepository {
-  registerUser(newUser: IUser): Promise<IUser>
+  register(newUser: IUser): Promise<IUser>
 }
 
 @Service()
@@ -21,7 +21,7 @@ export class UserRepository
     super()
   }
 
-  registerUser(newUser: IUser): Promise<IUser> {
+  register(newUser: IUser): Promise<IUser> {
     try {
       return this.model.create(newUser)
     } catch (error) {

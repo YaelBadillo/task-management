@@ -17,7 +17,7 @@ export class UserService {
       registerUserDto.password,
     )
 
-    const user = await this.userRepository.registerUser({
+    const user = await this.userRepository.register({
       name: registerUserDto.name,
       password: encryptedPassword,
     })
