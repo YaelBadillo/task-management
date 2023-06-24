@@ -21,9 +21,9 @@ export class UserRepository
     super()
   }
 
-  registerUser(newUser: IUser) {
+  registerUser(newUser: IUser): Promise<IUser> {
     try {
-      return this.save(newUser)
+      return this.model.create(newUser)
     } catch (error) {
       throw new InternalServerErrorException('User could not be registered')
     }
