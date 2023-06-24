@@ -1,7 +1,7 @@
 import { Inject, Service } from 'typedi'
 
 import { UserRepository } from '@database/repositories'
-import { RegisterUserDto, UserDto } from '@shared/dtos'
+import { RegisterUserDto } from '@shared/dtos'
 import { Encrypter } from '@utils/encrypter'
 import { UserModel } from '@database/models'
 
@@ -22,8 +22,6 @@ export class UserService {
       password: encryptedPassword,
     })
 
-    const userDto = UserModel.toDto(user)
-
-    return userDto
+    return UserModel.toDto(user)
   }
 }

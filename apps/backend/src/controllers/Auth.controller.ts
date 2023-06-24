@@ -14,8 +14,8 @@ export class AuthController {
   constructor(private readonly userService: UserService) {}
 
   async signUp(req: RegisterUserRequest, res: Response) {
-    const userDto = await this.userService.registerUser(req.body)
+    await this.userService.registerUser(req.body)
 
-    return res.status(httpStatus.CREATED).json(userDto)
+    return res.status(httpStatus.CREATED).send()
   }
 }

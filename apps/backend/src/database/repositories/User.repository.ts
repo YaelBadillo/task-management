@@ -21,10 +21,9 @@ export class UserRepository
     super()
   }
 
-  async registerUser(newUser: IUser): Promise<IUser> {
+  registerUser(newUser: IUser) {
     try {
-      const user = new this.model(newUser)
-      return await user.save()
+      return this.save(newUser)
     } catch (error) {
       throw new InternalServerErrorException('User could not be registered')
     }
