@@ -34,6 +34,7 @@
       "@config": ["./config"],
       "@routes": ["./routes"],
       "@controllers": ["./controllers"],
+      "@controllers/*": ["./controllers/*"],
       "@services": ["./services"],
       "@middlewares": ["./middlewares"],
       "@utils/*": ["./utils/*"],

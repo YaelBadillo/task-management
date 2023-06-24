@@ -4,6 +4,7 @@ import Container from 'typedi'
 import { AuthController } from '@controllers'
 import { validate } from '@middlewares'
 import { RegisterUserSchema } from '../shared/schemas/user'
+import { catchAsync } from '@controllers/utils'
 
 export const register = (app: Express) => {
   const router = Router()
@@ -13,7 +14,7 @@ export const register = (app: Express) => {
   router.post(
     '/auth/signup',
     [validate(RegisterUserSchema)],
-    authController.signUp.bind(authController),
+    catchAsync(authController.signUp.bind(authController)),
   )
 
   app.use('/api', router)

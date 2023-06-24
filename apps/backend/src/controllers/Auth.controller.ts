@@ -4,6 +4,7 @@ import httpStatus from 'http-status'
 
 import { UserService } from '@services'
 import { RegisterUserDto } from '@shared/dtos'
+import { BadRequestException } from '@shared/exceptions'
 
 interface RegisterUserRequest extends Request {
   body: RegisterUserDto
@@ -16,6 +17,6 @@ export class AuthController {
   async signUp(req: RegisterUserRequest, res: Response) {
     const userDto = await this.userService.registerUser(req.body)
 
-    res.status(httpStatus.CREATED).json(userDto)
+    return res.status(httpStatus.CREATED).json(userDto)
   }
 }

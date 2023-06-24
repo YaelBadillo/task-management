@@ -3,6 +3,7 @@ import { Model } from 'mongoose'
 
 import { MongooseRepository } from '@database/repositories/Mongoose.repository'
 import { IUser } from '@database/models'
+import { InternalServerErrorException } from '@shared/exceptions'
 
 interface IUserRepository {
   registerUser(newUser: IUser): Promise<IUser | void>
@@ -25,7 +26,7 @@ export class UserRepository
       const user = new this.model(newUser)
       return await user.save()
     } catch (error) {
-      throw new Error('User could not be registered')
+      throw new InternalServerErrorException('User could not be registered')
     }
   }
 }
