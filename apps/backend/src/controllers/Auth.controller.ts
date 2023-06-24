@@ -4,7 +4,6 @@ import httpStatus from 'http-status'
 
 import { UserService } from '@services'
 import { RegisterUserDto } from '@shared/dtos'
-import { BadRequestException } from '@shared/exceptions'
 
 interface RegisterUserRequest extends Request {
   body: RegisterUserDto
