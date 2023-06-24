@@ -1,5 +1,8 @@
 import { Schema, model } from 'mongoose'
 
+import { Model } from '@database/models/Model.interface'
+import { UserDto } from '@shared/dtos'
+
 export interface IUser {
   name: string
   password: string
@@ -14,4 +17,17 @@ const userSchema = new Schema<IUser>({
   updatedAt: { type: Date, default: Date.now },
 })
 
-export const UserModel = model<IUser>('User', userSchema)
+userSchema.statics.toDto = function ({
+  name,
+  createdAt,
+  updatedAt,
+}: IUser): UserDto {
+  const userDto = new UserDto()
+  userDto.name = name
+  userDto.createdAt = createdAt
+  userDto.updatedAt = updatedAt
+
+  return userDto
+}
+
+export const UserModel = model<IUser, Model<IUser, UserDto>>('User', userSchema)

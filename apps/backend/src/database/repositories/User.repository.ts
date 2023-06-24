@@ -20,7 +20,7 @@ export class UserRepository
     super()
   }
 
-  async registerUser(newUser: IUser): Promise<IUser | void> {
+  async registerUser(newUser: IUser): Promise<IUser> {
     try {
       const user = new this.model(newUser)
       return await user.save()

@@ -3,6 +3,7 @@ import { Inject, Service } from 'typedi'
 import { UserRepository } from '@database/repositories'
 import { RegisterUserDto, UserDto } from '@shared/dtos'
 import { Encrypter } from '@utils/encrypter'
+import { UserModel } from '@database/models'
 
 @Service()
 export class UserService {
@@ -21,12 +22,7 @@ export class UserService {
       password: encryptedPassword,
     })
 
-    const userDto = new UserDto()
-    if (user) {
-      userDto.name = user.name
-      userDto.createdAt = user.createdAt
-      userDto.updatedAt = user.updatedAt
-    }
+    const userDto = UserModel.toDto(user)
 
     return userDto
   }
