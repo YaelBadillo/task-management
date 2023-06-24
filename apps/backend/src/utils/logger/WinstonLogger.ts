@@ -1,7 +1,7 @@
 import winston, { Logger as WinstonLoggerType } from 'winston'
 import { Service } from 'typedi'
 
-import { Logger } from './Logger.interface'
+import { Logger } from '@utils/logger'
 
 enum Levels {
   DEBUG = 'debug',
