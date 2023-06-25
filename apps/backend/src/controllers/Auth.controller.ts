@@ -24,8 +24,11 @@ export class AuthController {
   }
 
   async logIn(req: LogInUserRequest, res: Response) {
-    const token = await this.userService.logIn(req.body)
+    const accessToken = await this.userService.logIn(req.body)
 
-    return res.status(httpStatus.OK).json(token)
+    res.header('Access-Control-Allow-Origin', 'http://localhost:5173')
+    res.header('Access-Control-Allow-Credentials', 'true')
+    res.cookie('access_token', accessToken, { httpOnly: true })
+    return res.status(httpStatus.OK).send()
   }
 }
