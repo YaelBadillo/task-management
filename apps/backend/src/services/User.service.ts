@@ -1,7 +1,7 @@
 import { Inject, Service } from 'typedi'
 
 import { UserRepository } from '@database/repositories'
-import { RegisterUserDto } from '@shared/dtos'
+import { LogInUserDto, RegisterUserDto } from '@shared/dtos'
 import { Encrypter } from '@utils/encrypter'
 import { UserModel } from '@database/models'
 import { BadRequestException } from '@shared/exceptions'
@@ -28,5 +28,20 @@ export class UserService {
     })
 
     return UserModel.toDto(user)
+  }
+
+  async logIn({ name, password }: LogInUserDto) {
+    const user = await this.userRepository.findOneByName(name)
+    if (!user) throw new BadRequestException(`Incorrect user`)
+
+    const arePasswordsEqual = await this.encrypter.compare(
+      password,
+      user.password,
+    )
+    if (!arePasswordsEqual) throw new BadRequestException('Incorrect password')
+
+    const token = ''
+
+    return token
   }
 }

@@ -17,5 +17,10 @@ export const register = (app: Express) => {
     catchAsync(authController.signUp.bind(authController)),
   )
 
+  router.post(
+    '/auth/login',
+    catchAsync(authController.logIn.bind(authController)),
+  )
+
   app.use('/api', router)
 }
