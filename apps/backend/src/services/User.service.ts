@@ -5,11 +5,13 @@ import { LogInUserDto, RegisterUserDto } from '@shared/dtos'
 import { Encrypter } from '@utils/encrypter'
 import { UserModel } from '@database/models'
 import { BadRequestException } from '@shared/exceptions'
+import { Jwt } from '@utils/jwt'
 
 @Service()
 export class UserService {
   constructor(
     private readonly userRepository: UserRepository,
+    @Inject('jsonwebtoken.jwt') private readonly jwtService: Jwt,
     @Inject('bcrypt.encrypter') private readonly encrypter: Encrypter,
   ) {}
 
@@ -40,7 +42,7 @@ export class UserService {
     )
     if (!arePasswordsEqual) throw new BadRequestException('Incorrect password')
 
-    const token = ''
+    const token = this.jwtService.sign(user.name)
 
     return token
   }
