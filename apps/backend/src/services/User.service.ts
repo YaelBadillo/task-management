@@ -1,15 +1,17 @@
 import { Inject, Service } from 'typedi'
 
 import { UserRepository } from '@database/repositories'
-import { RegisterUserDto } from '@shared/dtos'
+import { LogInUserDto, RegisterUserDto } from '@shared/dtos'
 import { Encrypter } from '@utils/encrypter'
 import { UserModel } from '@database/models'
 import { BadRequestException } from '@shared/exceptions'
+import { Jwt } from '@utils/jwt'
 
 @Service()
 export class UserService {
   constructor(
     private readonly userRepository: UserRepository,
+    @Inject('jsonwebtoken.jwt') private readonly jwtService: Jwt,
     @Inject('bcrypt.encrypter') private readonly encrypter: Encrypter,
   ) {}
 
@@ -28,5 +30,20 @@ export class UserService {
     })
 
     return UserModel.toDto(user)
+  }
+
+  async logIn({ name, password }: LogInUserDto) {
+    const user = await this.userRepository.findOneByName(name)
+    if (!user) throw new BadRequestException(`Incorrect user`)
+
+    const arePasswordsEqual = await this.encrypter.compare(
+      password,
+      user.password,
+    )
+    if (!arePasswordsEqual) throw new BadRequestException('Incorrect password')
+
+    const token = this.jwtService.sign(user.name)
+
+    return token
   }
 }
