@@ -6,7 +6,7 @@ import { IUser } from '@database/models'
 import { InternalServerErrorException } from '@shared/exceptions'
 
 interface IUserRepository {
-  registerUser(newUser: IUser): Promise<IUser>
+  register(newUser: IUser): Promise<IUser>
 }
 
 @Service()
@@ -21,11 +21,22 @@ export class UserRepository
     super()
   }
 
-  registerUser(newUser: IUser) {
+  async findOneByName(name: string): Promise<IUser> {
     try {
-      return this.save(newUser)
+      const user = await this.model.findOne({ name })
+      return user
     } catch (error) {
-      throw new InternalServerErrorException('User could not be registered')
+      throw new InternalServerErrorException(
+        `User with the name ${name} could not be found.`,
+      )
+    }
+  }
+
+  register(newUser: IUser): Promise<IUser> {
+    try {
+      return this.model.create(newUser)
+    } catch (error) {
+      throw new InternalServerErrorException('User could not be registered.')
     }
   }
 }
