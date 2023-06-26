@@ -23,7 +23,9 @@
     /* Paths */
     "baseUrl": "./src",
     "paths": {
-      "@app": ["./App.tsx"]
+      "@app": ["./App.tsx"],
+      "@pages/*": ["./pages/*"],
+      "@layouts": ["./layouts"]
     }
   },
   "include": ["src"],
