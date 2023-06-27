@@ -3,7 +3,7 @@ import { Link, Outlet } from 'react-router-dom'
 export const Root = () => {
   return (
     <>
-      <div className="container m-auto">
+      <div className="container m-auto flex-none">
         <div className="navbar bg-base-100">
           <div className="flex-1">
             <Link to="/" className="btn-ghost btn text-xl normal-case">
@@ -22,7 +22,7 @@ export const Root = () => {
           </div>
         </div>
       </div>
-      <div className="container m-auto">
+      <div className="container relative m-auto flex flex-1">
         <Outlet />
       </div>
     </>
