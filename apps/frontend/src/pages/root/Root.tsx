@@ -1,6 +1,6 @@
 import { Link, Outlet } from 'react-router-dom'
 
-export const RootContainer = () => {
+export const Root = () => {
   return (
     <>
       <div className="container m-auto">

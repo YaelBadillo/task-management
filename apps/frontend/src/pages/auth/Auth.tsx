@@ -1,9 +1,9 @@
 import { Outlet } from 'react-router-dom'
 
-export const AuthContainer = () => {
+export const Auth = () => {
   return (
     <div>
-      AuthContainer
+      Auth
       <Outlet />
     </div>
   )
