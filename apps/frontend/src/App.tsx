@@ -24,9 +24,9 @@ function App() {
             <Route path="login" element={<Login />} />
           </Route>
         </Route>
-      </Routes>
 
-      <Route path="*" element={<Navigate to="/" />} />
+        <Route path="*" element={<Navigate to="/" />} />
+      </Routes>
     </Router>
   )
 }
