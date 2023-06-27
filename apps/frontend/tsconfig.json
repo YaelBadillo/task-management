@@ -25,6 +25,7 @@
     "paths": {
       "@app": ["./App.tsx"],
       "@pages/*": ["./pages/*"],
+      "@components/*": ["./components/*"],
       "@layouts": ["./layouts"]
     }
   },

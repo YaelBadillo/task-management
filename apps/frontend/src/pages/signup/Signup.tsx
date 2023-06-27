@@ -1,32 +1,18 @@
-import { Link } from 'react-router-dom'
+import { AuthSwitch, Button, Form, Heading, Input } from '@components/auth-form'
 
 export const Signup = () => {
   return (
     <>
-      <article className="prose-xl prose-stone prose m-auto">
-        <h3>Create your account</h3>
-      </article>
-      <form action="" className="form-control w-full max-w-sm gap-y-4">
-        <input
-          type="text"
-          placeholder="Name"
-          className="input-bordered input-primary input w-full max-w-sm"
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          className="input-bordered input-primary input w-full max-w-sm"
-        />
-        <button className="btn-block btn bg-primary">Sign up</button>
-      </form>
-      <article className="prose m-auto">
-        <p className="">
-          Already have an account?{' '}
-          <Link to="/auth/login" className="link">
-            Login
-          </Link>
-        </p>
-      </article>
+      <Heading>Create your account</Heading>
+      <Form>
+        <Input type="text" placeholder="Username" />
+        <Input type="password" placeholder="Password" />
+        <Input type="password" placeholder="Confirm password" />
+        <Button>Sign up</Button>
+      </Form>
+      <AuthSwitch linkText="Login" linkPath="/auth/login">
+        Already have an account?
+      </AuthSwitch>
     </>
   )
 }
