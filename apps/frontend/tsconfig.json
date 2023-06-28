@@ -25,7 +25,10 @@
     "paths": {
       "@app": ["./App.tsx"],
       "@pages/*": ["./pages/*"],
-      "@layouts": ["./layouts"]
+      "@components/*": ["./components/*"],
+      "@layouts": ["./layouts"],
+      "@hooks": ["./hooks"],
+      "@utils/*": ["./utils/*"]
     }
   },
   "include": ["src"],

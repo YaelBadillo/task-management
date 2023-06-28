@@ -1,3 +1,46 @@
+import { AuthSwitch, Button, Form, Heading, Input } from '@components/auth-form'
+import { useForm } from '@hooks'
+
 export const Signup = () => {
-  return <div>Signup</div>
+  const { formik, status, error } = useForm({
+    url: 'http://localhost:3000/auth/sign-up',
+    initialValues: {
+      username: '',
+      password: '',
+      passwordConfirm: '',
+    },
+  })
+
+  return (
+    <>
+      <Heading>Create your account</Heading>
+      <Form handleSubmit={formik.handleSubmit}>
+        <Input
+          type="text"
+          placeholder="Username"
+          name="username"
+          value={formik.values.username}
+          onChange={formik.handleChange}
+        />
+        <Input
+          type="password"
+          placeholder="Password"
+          name="password"
+          value={formik.values.password}
+          onChange={formik.handleChange}
+        />
+        <Input
+          type="password"
+          placeholder="Confirm password"
+          name="passwordConfirm"
+          value={formik.values.passwordConfirm}
+          onChange={formik.handleChange}
+        />
+        <Button>Sign up</Button>
+      </Form>
+      <AuthSwitch linkText="Login" linkPath="/auth/login">
+        Already have an account?
+      </AuthSwitch>
+    </>
+  )
 }

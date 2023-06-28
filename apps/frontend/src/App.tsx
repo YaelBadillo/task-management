@@ -8,16 +8,17 @@ import {
 import { Home } from '@pages/home'
 import { Signup } from '@pages/signup'
 import { Login } from '@pages/login'
-import { AuthContainer, RootContainer } from '@layouts'
+import { Root } from '@pages/root'
+import { Auth } from '@pages/auth'
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<RootContainer />}>
+        <Route path="/" element={<Root />}>
           <Route index element={<Home />} />
 
-          <Route path="auth" element={<AuthContainer />}>
+          <Route path="auth" element={<Auth />}>
             <Route index element={<Navigate to="/auth/login" />} />
 
             <Route path="sign-up" element={<Signup />} />
