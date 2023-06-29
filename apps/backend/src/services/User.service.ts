@@ -15,25 +15,25 @@ export class UserService {
     @Inject('bcrypt.encrypter') private readonly encrypter: Encrypter,
   ) {}
 
-  async registerUser({ name, password }: RegisterUserDto) {
-    let user = await this.userRepository.findOneByName(name)
+  async registerUser({ username, password }: RegisterUserDto) {
+    let user = await this.userRepository.findOneByUsername(username)
     if (user)
       throw new BadRequestException(
-        `Name ${name} is already taken, please choose another.`,
+        `Username ${username} is already taken, please choose another.`,
       )
 
     const hashedPassword = await this.encrypter.encrypt(password)
 
     user = await this.userRepository.register({
-      name: name,
+      username,
       password: hashedPassword,
     })
 
     return UserModel.toDto(user)
   }
 
-  async logIn({ name, password }: LogInUserDto) {
-    const user = await this.userRepository.findOneByName(name)
+  async logIn({ username, password }: LogInUserDto) {
+    const user = await this.userRepository.findOneByUsername(username)
     if (!user) throw new BadRequestException(`Incorrect user`)
 
     const arePasswordsEqual = await this.encrypter.compare(
@@ -42,7 +42,7 @@ export class UserService {
     )
     if (!arePasswordsEqual) throw new BadRequestException('Incorrect password')
 
-    const token = this.jwtService.sign(user.name)
+    const token = this.jwtService.sign(user.username)
 
     return token
   }

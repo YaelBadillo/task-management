@@ -21,20 +21,21 @@ export class UserRepository
     super()
   }
 
-  async findOneByName(name: string): Promise<IUser> {
+  async findOneByUsername(username: string): Promise<IUser> {
     try {
-      const user = await this.model.findOne({ name })
+      const user = await this.model.findOne({ username })
       return user
     } catch (error) {
       throw new InternalServerErrorException(
-        `User with the name ${name} could not be found.`,
+        `User with the username ${username} could not be found.`,
       )
     }
   }
 
-  register(newUser: IUser): Promise<IUser> {
+  async register(newUser: IUser): Promise<IUser> {
     try {
-      return this.model.create(newUser)
+      const registeredUser = await this.model.create<IUser>(newUser)
+      return registeredUser
     } catch (error) {
       throw new InternalServerErrorException('User could not be registered.')
     }
