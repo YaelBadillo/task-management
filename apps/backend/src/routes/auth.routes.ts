@@ -12,7 +12,7 @@ export const register = (app: Express) => {
   const authController = Container.get<AuthController>(AuthController)
 
   router.post(
-    '/auth/signup',
+    '/auth/sign-up',
     [validate(RegisterUserSchema)],
     catchAsync(authController.signUp.bind(authController)),
   )
