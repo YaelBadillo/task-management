@@ -1,6 +1,7 @@
 import http from 'http'
+import path from 'path'
 
-import express, { Express } from 'express'
+import express, { Express, Request, Response } from 'express'
 import bodyParser from 'body-parser'
 import morgan from 'morgan'
 import Container from 'typedi'
@@ -19,8 +20,17 @@ export class Server {
 
     this.express.use(morgan('dev'))
     this.express.use(bodyParser.json())
+    this.express.use(
+      express.static(path.join(__dirname, '../../', 'frontend/dist')),
+    )
 
     registerRoutes(this.express)
+
+    this.express.get('*', (req: Request, res: Response) => {
+      return res.sendFile(
+        path.join(__dirname, '../../', 'frontend/dist/index.html'),
+      )
+    })
   }
 
   listen(): Promise<void> {
