@@ -25,12 +25,6 @@ export class Server {
     )
 
     registerRoutes(this.express)
-
-    this.express.get('*', (req: Request, res: Response) => {
-      return res.sendFile(
-        path.join(__dirname, '../../', 'frontend/dist/index.html'),
-      )
-    })
   }
 
   listen(): Promise<void> {
