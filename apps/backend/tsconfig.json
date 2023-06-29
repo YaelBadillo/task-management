@@ -1,4 +1,8 @@
 {
+  "ts-node": {
+    // Do not forget to `npm i -D tsconfig-paths`
+    "require": ["tsconfig-paths/register"]
+  },
   "compilerOptions": {
     /* Visit https://aka.ms/tsconfig to read more about this file */
 
@@ -30,7 +34,7 @@
     // "moduleResolution": "node10",                     /* Specify how TypeScript looks up a file from a given module specifier. */
     "baseUrl": "./src",                                  /* Specify the base directory to resolve non-relative module names. */
     "paths": {
-      "@app": ["./App.ts"],
+      "@app": ["./App.ts", "./App.js"],
       "@config": ["./config"],
       "@routes": ["./routes"],
       "@controllers": ["./controllers"],
