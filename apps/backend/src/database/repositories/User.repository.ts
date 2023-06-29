@@ -32,9 +32,10 @@ export class UserRepository
     }
   }
 
-  register(newUser: IUser): Promise<IUser> {
+  async register(newUser: IUser): Promise<IUser> {
     try {
-      return this.model.create(newUser)
+      const registeredUser = await this.model.create<IUser>(newUser)
+      return registeredUser
     } catch (error) {
       throw new InternalServerErrorException('User could not be registered.')
     }
