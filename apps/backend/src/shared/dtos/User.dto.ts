@@ -1,19 +1,19 @@
 export class UserDto {
-  private _name: string
+  private _username: string
   private _createdAt?: Date | undefined
 
   private _updatedAt?: Date | undefined
 
   constructor() {
-    this._name = ''
+    this._username = ''
   }
 
-  public get name(): string {
-    return this._name
+  public get username(): string {
+    return this._username
   }
 
-  public set name(value: string) {
-    this._name = value
+  public set username(value: string) {
+    this._username = value
   }
 
   public get createdAt(): Date | undefined {

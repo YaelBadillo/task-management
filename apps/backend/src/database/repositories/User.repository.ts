@@ -21,13 +21,13 @@ export class UserRepository
     super()
   }
 
-  async findOneByName(name: string): Promise<IUser> {
+  async findOneByUsername(username: string): Promise<IUser> {
     try {
-      const user = await this.model.findOne({ name })
+      const user = await this.model.findOne({ username })
       return user
     } catch (error) {
       throw new InternalServerErrorException(
-        `User with the name ${name} could not be found.`,
+        `User with the username ${username} could not be found.`,
       )
     }
   }
