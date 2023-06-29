@@ -1,15 +1,20 @@
 import { AuthSwitch, Button, Form, Heading, Input } from '@components/auth-form'
 import { useForm } from '@hooks'
+import { useEffect } from 'react'
 
 export const Signup = () => {
   const { formik, status, error } = useForm({
-    url: 'http://localhost:3000/auth/sign-up',
+    url: 'http://localhost:3000/api/auth/sign-up',
     initialValues: {
       username: '',
       password: '',
       passwordConfirm: '',
     },
   })
+
+  useEffect(() => {
+    console.log()
+  }, [status, error])
 
   return (
     <>
