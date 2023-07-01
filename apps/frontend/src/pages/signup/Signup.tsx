@@ -1,9 +1,13 @@
-import { AuthSwitch, Button, Form, Heading, Input } from '@components/auth-form'
-import { useForm } from '@hooks'
 import { useEffect } from 'react'
 
+import { useNavigate } from 'react-router-dom'
+
+import { AuthSwitch, Button, Form, Heading, Input } from '@components/auth-form'
+import { Loading } from '@components/loading'
+import { useForm } from '@hooks'
+
 export const Signup = () => {
-  const { formik, status, error } = useForm({
+  const { formik, status, value } = useForm({
     url: 'http://localhost:3000/api/auth/sign-up',
     initialValues: {
       username: '',
@@ -11,10 +15,13 @@ export const Signup = () => {
       passwordConfirm: '',
     },
   })
+  const navigate = useNavigate()
 
   useEffect(() => {
-    console.log()
-  }, [status, error])
+    if (status === 'success' && value !== undefined) navigate('/auth/login')
+  }, [status])
+
+  if (status === 'pending') return <Loading />
 
   return (
     <>
