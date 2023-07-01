@@ -7,7 +7,7 @@ import { Loading } from '@components/loading'
 import { useForm } from '@hooks'
 
 export const Signup = () => {
-  const { formik, status, value } = useForm({
+  const { formik, status } = useForm({
     url: 'http://localhost:3000/api/auth/sign-up',
     initialValues: {
       username: '',
@@ -18,8 +18,8 @@ export const Signup = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (status === 'success' && value !== undefined) navigate('/auth/login')
-  }, [status])
+    if (status === 'success') navigate('/auth/login')
+  }, [status, navigate])
 
   if (status === 'pending') return <Loading />
 
