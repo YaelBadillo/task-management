@@ -1,13 +1,15 @@
 import Container from 'typedi'
+import { Config } from 'convict'
 
+import { ConfigSchema } from '@config'
 import { Server } from './Server'
 
 export class App {
   private server?: Server
 
   start() {
-    const port = process.env.PORT || '3000'
-    this.server = new Server(port)
+    const config = Container.get<Config<ConfigSchema>>('config')
+    this.server = new Server(config)
 
     return this.server.listen()
   }
