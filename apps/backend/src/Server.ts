@@ -27,9 +27,7 @@ export class Server {
       express.static(path.join(__dirname, '../../', 'frontend/dist')),
     )
 
-    if (config.get('env') === 'development') {
-      this.express.use(cors)
-    }
+    this.setDevCors()
 
     registerRoutes(this.express)
   }
@@ -62,5 +60,11 @@ export class Server {
 
   get server() {
     return this.httpServer
+  }
+
+  private setDevCors() {
+    if (this.config.get('env') === 'development') {
+      this.express.use(cors())
+    }
   }
 }
