@@ -6,7 +6,7 @@ interface ButtonProps {
 
 export const Button: FC<ButtonProps> = ({ children: text }) => {
   return (
-    <button type="button" className="btn-block btn bg-primary">
+    <button type="submit" className="btn-block btn bg-primary">
       {text}
     </button>
   )
