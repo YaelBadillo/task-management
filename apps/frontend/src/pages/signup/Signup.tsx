@@ -5,6 +5,8 @@ import { useNavigate } from 'react-router-dom'
 import { AuthSwitch, Button, Form, Heading, Input } from '@components/auth-form'
 import { Loading } from '@components/loading'
 import { useForm } from '@hooks'
+import { validate } from '@utils/validate'
+import { SignupSchema } from '@pages/signup/SignupSchema'
 
 export const Signup = () => {
   const { formik, status } = useForm({
@@ -14,6 +16,7 @@ export const Signup = () => {
       password: '',
       passwordConfirm: '',
     },
+    validate: validate(SignupSchema),
   })
   const navigate = useNavigate()
 
