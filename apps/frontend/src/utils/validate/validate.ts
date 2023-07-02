@@ -1,12 +1,17 @@
 import { AnyZodObject, ZodError } from 'zod'
 
-export const validate = (schema: AnyZodObject) => async (values: unknown) => {
+export const validate = (schema: AnyZodObject) => (values: unknown) => {
+  const errors: { [key: string]: string } = {}
+
   try {
-    await schema.parseAsync({ values })
+    schema.parse({ values })
   } catch (error) {
-    if (error instanceof ZodError)
-      return error.issues.map(({ path, message }) => {
-        return { path: String(path), message }
+    if (error instanceof ZodError) {
+      error.issues.forEach(({ path, message }) => {
+        errors[String(path[1])] = message
       })
+    }
   }
+
+  return errors
 }
