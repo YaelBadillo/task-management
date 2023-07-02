@@ -64,7 +64,9 @@ export class Server {
 
   private setDevCors() {
     if (this.config.get('env') === 'development') {
-      this.express.use(cors())
+      this.express.use(
+        cors({ origin: 'http://localhost:5173', credentials: true }),
+      )
     }
   }
 }
