@@ -1,15 +1,11 @@
 import { AuthSwitch, Button, Form, Heading, Input } from '@components/auth-form'
-import { useForm } from '@hooks'
+import { Loading } from '@components/loading'
+import { useSignup } from '@pages/signup/useSignup'
 
 export const Signup = () => {
-  const { formik, status, error } = useForm({
-    url: 'http://localhost:3000/auth/sign-up',
-    initialValues: {
-      username: '',
-      password: '',
-      passwordConfirm: '',
-    },
-  })
+  const { formik, status } = useSignup()
+
+  if (status === 'pending') return <Loading />
 
   return (
     <>
@@ -20,6 +16,12 @@ export const Signup = () => {
           placeholder="Username"
           name="username"
           value={formik.values.username}
+          error={
+            formik.touched.username && formik.errors.username
+              ? formik.errors.username
+              : undefined
+          }
+          onBlur={formik.handleBlur}
           onChange={formik.handleChange}
         />
         <Input
@@ -27,6 +29,12 @@ export const Signup = () => {
           placeholder="Password"
           name="password"
           value={formik.values.password}
+          error={
+            formik.touched.password && formik.errors.password
+              ? formik.errors.password
+              : undefined
+          }
+          onBlur={formik.handleBlur}
           onChange={formik.handleChange}
         />
         <Input
@@ -34,6 +42,12 @@ export const Signup = () => {
           placeholder="Confirm password"
           name="passwordConfirm"
           value={formik.values.passwordConfirm}
+          error={
+            formik.touched.passwordConfirm && formik.errors.passwordConfirm
+              ? formik.errors.passwordConfirm
+              : undefined
+          }
+          onBlur={formik.handleBlur}
           onChange={formik.handleChange}
         />
         <Button>Sign up</Button>
