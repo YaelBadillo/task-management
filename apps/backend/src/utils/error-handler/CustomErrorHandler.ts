@@ -15,9 +15,11 @@ export class CustomErrorHandler extends ErrorHandler {
 
   httpException(err: Error, _req: Request, res: Response, next: NextFunction) {
     if (err instanceof HttpException) {
-      return res
-        .status(err.status)
-        .json({ status: err.status, message: err.message })
+      return res.status(err.status).json({
+        status: err.status,
+        message: err.message,
+        path: err.path,
+      })
     }
 
     return next(err)
