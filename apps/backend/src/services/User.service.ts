@@ -20,6 +20,7 @@ export class UserService {
     if (user)
       throw new BadRequestException(
         `Username ${username} is already taken, please choose another.`,
+        'username',
       )
 
     const hashedPassword = await this.encrypter.encrypt(password)
@@ -34,13 +35,14 @@ export class UserService {
 
   async logIn({ username, password }: LogInUserDto) {
     const user = await this.userRepository.findOneByUsername(username)
-    if (!user) throw new BadRequestException(`Incorrect user`)
+    if (!user) throw new BadRequestException(`Incorrect user`, 'username')
 
     const arePasswordsEqual = await this.encrypter.compare(
       password,
       user.password,
     )
-    if (!arePasswordsEqual) throw new BadRequestException('Incorrect password')
+    if (!arePasswordsEqual)
+      throw new BadRequestException('Incorrect password', 'password')
 
     const token = this.jwtService.sign(user.username)
 
