@@ -11,6 +11,7 @@ import cors from 'cors'
 import { Logger, WinstonLogger } from '@utils/logger'
 import { registerRoutes } from '@routes'
 import { ConfigSchema } from '@config'
+import { ErrorHandler, CustomErrorHandler } from '@utils/error-handler'
 
 export class Server {
   private readonly express: Express
@@ -30,6 +31,11 @@ export class Server {
     this.setDevCors()
 
     registerRoutes(this.express)
+
+    const errorHandler = Container.get<ErrorHandler>(CustomErrorHandler)
+    this.express.use(errorHandler.log.bind(errorHandler))
+    this.express.use(errorHandler.httpException.bind(errorHandler))
+    this.express.use(errorHandler.error.bind(errorHandler))
   }
 
   listen(): Promise<void> {
