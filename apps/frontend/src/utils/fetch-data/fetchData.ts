@@ -1,9 +1,9 @@
 import axios, { AxiosError, AxiosResponse, Method } from 'axios'
 
 interface ErrorResponse {
-  statusCode: number
+  status: number
   message: string
-  error: string
+  path?: string
 }
 
 export const fetchData = async <T, D = object>(
@@ -21,13 +21,13 @@ export const fetchData = async <T, D = object>(
 
     return response.data
   } catch (error: unknown) {
-    if (error instanceof AxiosError) handleErrors(error)
-
-    throw new Error('Unexpected error.')
+    if (error instanceof AxiosError) handleError(error)
   }
+
+  throw new Error('Unexpected error.')
 }
 
-const handleErrors = (error: AxiosError<ErrorResponse>) => {
+const handleError = (error: AxiosError<ErrorResponse>) => {
   if (error.response) throw new Error(error.response?.data.message)
 
   if (error.request) throw new Error(error.request)
