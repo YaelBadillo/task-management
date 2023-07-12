@@ -20,6 +20,14 @@
       "outputs": [
         "{projectRoot}/dist"
       ]
+    },
+    "start:prod": {
+      "dependsOn": [
+        "build"
+      ],
+      "outputs": [
+        "{projectRoot}/dist"
+      ]
     }
   },
   "affected": {
