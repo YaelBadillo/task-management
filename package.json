@@ -4,9 +4,9 @@
   "description": "",
   "main": "apps/backend/dist/main.js",
   "scripts": {
-    "build": "turbo build",
-    "start:dev": "turbo start:dev",
-    "start:prod": "turbo start:prod",
+    "build": "nx run-many -t build",
+    "start:dev": "nx run-many -t start:dev --output-style=stream",
+    "start:prod": "nx run-many -t start:prod --output-style=stream",
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepare": "husky install"
   },
