@@ -1,4 +1,4 @@
-import { HttpException } from '@shared/exceptions/HttpException'
+import { HttpException } from 'http-exception'
 import httpStatus from 'http-status'
 
 export class BadRequestException extends HttpException {

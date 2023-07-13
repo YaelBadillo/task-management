@@ -1,11 +1,10 @@
-import httpStatus from 'http-status'
-
 import { NextFunction, Request, Response } from 'express'
+import { HttpException } from 'http-exception'
+import httpStatus from 'http-status'
 import { Inject, Service } from 'typedi'
 
 import { ErrorHandler } from '@utils/error-handler/ErrorHandler'
 import { Logger } from '@utils/logger'
-import { HttpException } from '@shared/exceptions/HttpException'
 
 @Service()
 export class CustomErrorHandler extends ErrorHandler {
