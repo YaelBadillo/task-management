@@ -7,3 +7,5 @@ export class HttpException extends Error {
     super(message)
   }
 }
+
+export default HttpException
