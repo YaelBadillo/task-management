@@ -1,19 +1,6 @@
 {
   "name": "http-exception",
-  "version": "1.0.0",
-  "description": "",
-  "main": "dist/index.js",
-  "scripts": {
-    "build": "tsc -p ./tsconfig.json",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "exports": {
-    ".": {
-      "require": "./dist/index.js",
-      "import": "./index.ts"
-    }
-  }
+  "version": "0.0.1",
+  "type": "commonjs",
+  "main": "dist/src/index.js"
 }
