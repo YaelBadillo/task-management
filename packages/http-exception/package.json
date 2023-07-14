@@ -9,5 +9,11 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "exports": {
+    ".": {
+      "require": "./dist/index.js",
+      "import": "./index.ts"
+    }
+  }
 }
