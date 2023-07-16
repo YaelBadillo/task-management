@@ -12,8 +12,11 @@
       "dependsOn": ["^build"],
       "outputs": ["{projectRoot}/dist"]
     },
+    "start:dev": {
+      "dependsOn": ["^build"]
+    },
     "start:prod": {
-      "dependsOn": ["build"],
+      "dependsOn": ["build", "^build"],
       "outputs": ["{projectRoot}/dist"]
     },
     "test": {
