@@ -1,7 +1,7 @@
 export class HttpException extends Error {
   constructor(
     readonly status: number,
-    readonly message: string,
+    message: string,
     readonly path?: string,
   ) {
     super(message)

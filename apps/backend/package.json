@@ -42,5 +42,10 @@
     "@types/morgan": "^1.9.4",
     "@types/node": "^20.3.1",
     "ts-node-dev": "^2.0.0"
+  },
+  "nx": {
+    "implicitDependencies": [
+      "frontend"
+    ]
   }
 }
