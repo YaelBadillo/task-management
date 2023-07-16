@@ -13,11 +13,10 @@
       "outputs": ["{projectRoot}/dist"]
     },
     "start:dev": {
-      "dependsOn": ["^build"]
+      "dependsOn": ["build"]
     },
     "start:prod": {
-      "dependsOn": ["build", "^build"],
-      "outputs": ["{projectRoot}/dist"]
+      "dependsOn": ["build"]
     },
     "test": {
       "inputs": ["default", "^default", "{workspaceRoot}/jest.preset.js"]
