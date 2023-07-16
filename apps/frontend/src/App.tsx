@@ -10,6 +10,7 @@ import { Signup } from '@pages/signup'
 import { Login } from '@pages/login'
 import { Root } from '@pages/root'
 import { Auth } from '@pages/auth'
+import { LazyDashboard as Dashboard } from '@pages/dashboard'
 
 function App() {
   return (
@@ -23,6 +24,10 @@ function App() {
 
             <Route path="sign-up" element={<Signup />} />
             <Route path="login" element={<Login />} />
+          </Route>
+
+          <Route path="dashboard">
+            <Route index element={<Dashboard />} />
           </Route>
         </Route>
 
