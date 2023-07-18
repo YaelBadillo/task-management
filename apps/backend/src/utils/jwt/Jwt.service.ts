@@ -20,4 +20,14 @@ export class JwtService extends Jwt {
       expiresIn: this.signOptions.expiresIn,
     })
   }
+
+  verify(token: string) {
+    return new Promise((resolve, reject) => {
+      this.jwt.verify(token, this.secretKey, (err, decoded) => {
+        if (err) return reject(err)
+
+        resolve(decoded)
+      })
+    })
+  }
 }

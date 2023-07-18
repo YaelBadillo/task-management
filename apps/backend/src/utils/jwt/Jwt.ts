@@ -12,4 +12,5 @@ export abstract class Jwt {
   }
 
   abstract sign(userName: string): string
+  abstract verify(token: string): unknown
 }
