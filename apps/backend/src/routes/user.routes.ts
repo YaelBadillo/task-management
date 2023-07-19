@@ -3,7 +3,7 @@ import { Express, Router } from 'express'
 import Container from 'typedi'
 
 import { UserController } from '@controllers'
-import { errorCatcher } from '@controllers/utils'
+import { errorCatcher } from '@utils/error-catcher'
 
 export const register = (app: Express) => {
   const router = Router()

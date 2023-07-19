@@ -13,7 +13,7 @@ import { Logger, WinstonLogger } from '@utils/logger'
 import { registerRoutes } from '@routes'
 import { ConfigSchema } from '@config'
 import { ErrorHandler, CustomErrorHandler } from '@utils/error-handler'
-import { errorCatcher } from '@controllers/utils'
+import { errorCatcher } from '@utils/error-catcher'
 import { conditionalMiddleware } from '@utils/conditional-middleware'
 import { AuthMiddleware, BaseAuthMiddleware } from '@middlewares'
 
