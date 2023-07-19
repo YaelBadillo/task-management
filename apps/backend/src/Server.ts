@@ -13,7 +13,7 @@ import { Logger, WinstonLogger } from '@utils/logger'
 import { registerRoutes } from '@routes'
 import { ConfigSchema } from '@config'
 import { ErrorHandler, CustomErrorHandler } from '@utils/error-handler'
-import { catchAsync } from '@controllers/utils'
+import { errorCatcher } from '@controllers/utils'
 import { conditionalMiddleware } from '@utils/conditional-middleware'
 import { AuthMiddleware, BaseAuthMiddleware } from '@middlewares'
 
@@ -36,7 +36,7 @@ export class Server {
 
     const authMiddleware = Container.get<BaseAuthMiddleware>(AuthMiddleware)
     this.express.use(
-      catchAsync(
+      errorCatcher(
         conditionalMiddleware(authMiddleware.verify.bind(authMiddleware), [
           'auth',
         ]),

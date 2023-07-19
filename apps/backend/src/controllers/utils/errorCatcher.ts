@@ -1,6 +1,6 @@
 import { NextFunction, Request, RequestHandler, Response } from 'express'
 
-export const catchAsync =
+export const errorCatcher =
   (handler: RequestHandler) =>
   async (req: Request, res: Response, next: NextFunction) => {
     try {
