@@ -15,7 +15,7 @@ import { ConfigSchema } from '@config'
 import { ErrorHandler, CustomErrorHandler } from '@utils/error-handler'
 import { errorCatcher } from '@utils/error-catcher'
 import { conditionalMiddleware } from '@utils/conditional-middleware'
-import { AuthMiddleware, BaseAuthMiddleware } from '@middlewares'
+import { AuthMiddleware, BaseAuthMiddleware } from '@middlewares/auth'
 
 export class Server {
   private readonly express: Express

@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from 'express'
-import { AnyZodObject } from 'zod'
+import { AnyZodObject, ZodError } from 'zod'
 import httpStatus from 'http-status'
 
-export const validate =
+export const validateRequestData =
   (schema: AnyZodObject) =>
   async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -13,6 +13,15 @@ export const validate =
       })
       return next()
     } catch (error) {
-      return res.status(httpStatus.BAD_REQUEST).json(error)
+      if (error instanceof ZodError) {
+        const issues = error.issues.map(({ message, path }) => ({
+          message,
+          path,
+        }))
+
+        return res.status(httpStatus.BAD_REQUEST).json({ issues })
+      }
+
+      next(new Error('Unexpected error.'))
     }
   }

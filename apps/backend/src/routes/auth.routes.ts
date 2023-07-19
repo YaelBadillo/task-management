@@ -2,7 +2,7 @@ import { Express, Router } from 'express'
 import Container from 'typedi'
 
 import { AuthController } from '@controllers'
-import { validate } from '@middlewares'
+import { validateRequestData } from '@middlewares/validate-request-data'
 import { RegisterUserSchema } from '../shared/schemas/user'
 import { errorCatcher } from '@utils/error-catcher'
 
@@ -13,7 +13,7 @@ export const register = (app: Express) => {
 
   router.post(
     '/auth/sign-up',
-    [validate(RegisterUserSchema)],
+    [validateRequestData(RegisterUserSchema)],
     errorCatcher(authController.signUp.bind(authController)),
   )
 
