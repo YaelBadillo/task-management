@@ -4,6 +4,16 @@ import { Inject, Service } from 'typedi'
 
 import { Jwt } from '@utils/jwt/Jwt'
 import { ConfigSchema } from '@config'
+import {
+  InternalServerErrorException,
+  UnauthorizedException,
+} from '@shared/exceptions'
+
+const ErrorNames = {
+  TokenExpiredError: 'TokenExpiredError',
+  JsonWebTokenError: 'JsonWebTokenError',
+  NotBeforeError: 'NotBeforeError',
+}
 
 @Service()
 export class JwtService extends Jwt {
@@ -24,9 +34,34 @@ export class JwtService extends Jwt {
   verify(token: string) {
     return new Promise((resolve, reject) => {
       this.jwt.verify(token, this.secretKey, (err, decoded) => {
-        if (err) return reject(err)
+        if (!err) resolve(decoded)
 
-        resolve(decoded)
+        if (err?.name === ErrorNames.TokenExpiredError)
+          reject(
+            new UnauthorizedException(
+              'JWT has expired: The token provided has expired. Please obtain a new token for accessing this resource.',
+            ),
+          )
+
+        if (err?.name === ErrorNames.JsonWebTokenError)
+          reject(
+            new UnauthorizedException(
+              'Invalid JWT: The token provided is not valid. Please ensure you are using a well-formed JSON Web Token.',
+            ),
+          )
+
+        if (err?.name === ErrorNames.NotBeforeError)
+          reject(
+            new UnauthorizedException(
+              "JWT not active: The token is not yet valid to be used. Please check the token's 'not before' claim and ensure it is active.",
+            ),
+          )
+
+        reject(
+          new InternalServerErrorException(
+            'An unexpected error occurred while processing your request. Please try again later or contact the system administrator for assistance.',
+          ),
+        )
       })
     })
   }
