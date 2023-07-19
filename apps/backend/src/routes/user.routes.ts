@@ -15,5 +15,5 @@ export const register = (app: Express) => {
     catchAsync(userController.getUserProfile.bind(userController)),
   )
 
-  app.use('/api/user', router)
+  app.use('/api/user-profile', router)
 }
