@@ -7,11 +7,15 @@ import bodyParser from 'body-parser'
 import morgan from 'morgan'
 import Container from 'typedi'
 import cors from 'cors'
+import cookieParser from 'cookie-parser'
 
 import { Logger, WinstonLogger } from '@utils/logger'
 import { registerRoutes } from '@routes'
 import { ConfigSchema } from '@config'
 import { ErrorHandler, CustomErrorHandler } from '@utils/error-handler'
+import { catchAsync } from '@controllers/utils'
+import { conditionalMiddleware } from '@utils/conditional-middleware'
+import { AuthMiddleware, BaseAuthMiddleware } from '@middlewares'
 
 export class Server {
   private readonly express: Express
@@ -24,11 +28,20 @@ export class Server {
 
     this.express.use(morgan('dev'))
     this.express.use(bodyParser.json())
+    this.express.use(cookieParser())
     this.express.use(
       express.static(path.join(__dirname, '../../', 'frontend/dist')),
     )
-
     this.setDevCors()
+
+    const authMiddleware = Container.get<BaseAuthMiddleware>(AuthMiddleware)
+    this.express.use(
+      catchAsync(
+        conditionalMiddleware(authMiddleware.verify.bind(authMiddleware), [
+          'auth',
+        ]),
+      ),
+    )
 
     registerRoutes(this.express)
 
