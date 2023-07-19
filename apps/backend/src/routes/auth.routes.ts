@@ -4,7 +4,7 @@ import Container from 'typedi'
 import { AuthController } from '@controllers'
 import { validate } from '@middlewares'
 import { RegisterUserSchema } from '../shared/schemas/user'
-import { catchAsync } from '@controllers/utils'
+import { errorCatcher } from '@utils/error-catcher'
 
 export const register = (app: Express) => {
   const router = Router()
@@ -14,12 +14,12 @@ export const register = (app: Express) => {
   router.post(
     '/auth/sign-up',
     [validate(RegisterUserSchema)],
-    catchAsync(authController.signUp.bind(authController)),
+    errorCatcher(authController.signUp.bind(authController)),
   )
 
   router.post(
     '/auth/login',
-    catchAsync(authController.logIn.bind(authController)),
+    errorCatcher(authController.logIn.bind(authController)),
   )
 
   app.use('/api', router)
