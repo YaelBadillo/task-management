@@ -1,7 +1,6 @@
 import path from 'path'
 
 import { Request, Response } from 'express'
-
 import { Service } from 'typedi'
 
 @Service()

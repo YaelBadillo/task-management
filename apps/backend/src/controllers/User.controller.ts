@@ -1,5 +1,4 @@
 import { Response } from 'express'
-
 import { Service } from 'typedi'
 
 import { UserModel } from '@database/models'
