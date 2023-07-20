@@ -1,4 +1,3 @@
-export class LogInUserDto {
-  username: string
-  password: string
-}
+import { BaseUserDto } from '@shared/dtos/BaseUser.dto'
+
+export class LogInUserDto extends BaseUserDto {}
