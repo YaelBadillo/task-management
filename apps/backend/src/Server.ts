@@ -12,7 +12,7 @@ import cookieParser from 'cookie-parser'
 import { Logger, WinstonLogger } from '@utils/logger'
 import { registerRoutes } from '@routes'
 import { ConfigSchema } from '@config'
-import { ErrorHandler, CustomErrorHandler } from '@utils/error-handler'
+import { BaseErrorHandler, ErrorHandler } from '@utils/error-handler'
 import { errorCatcher } from '@utils/error-catcher'
 import { conditionalMiddleware } from '@utils/conditional-middleware'
 import { AuthMiddleware, BaseAuthMiddleware } from '@middlewares/auth'
@@ -45,7 +45,7 @@ export class Server {
 
     registerRoutes(this.express)
 
-    const errorHandler = Container.get<ErrorHandler>(CustomErrorHandler)
+    const errorHandler = Container.get<BaseErrorHandler>(ErrorHandler)
     this.express.use(errorHandler.log.bind(errorHandler))
     this.express.use(errorHandler.httpException.bind(errorHandler))
     this.express.use(errorHandler.error.bind(errorHandler))
