@@ -8,7 +8,7 @@ import { BaseAuthMiddleware } from '@middlewares/auth/BaseAuth.middleware'
 @Service()
 export class AuthMiddleware extends BaseAuthMiddleware {
   constructor(
-    @Inject('jsonwebtoken.jwt') protected readonly jwtService: Jwt,
+    @Inject('jsonwebtoken.jwt') protected readonly jwt: Jwt,
     private readonly userRepository: UserRepository,
   ) {
     super()
