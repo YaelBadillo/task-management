@@ -1,27 +1,33 @@
 import { NextFunction, Request, Response } from 'express'
+import { HttpException } from 'http-exception'
+import httpStatus from 'http-status'
+import { Inject, Service } from 'typedi'
 
+import { BaseErrorHandler } from '@utils/error-handler'
 import { Logger } from '@utils/logger'
 
-export abstract class ErrorHandler {
-  protected abstract readonly logger: Logger
-
-  log(err: Error, _req: Request, _res: Response, next: NextFunction) {
-    this.logger.error(err.message)
-
-    next(err)
+@Service()
+export class ErrorHandler extends BaseErrorHandler {
+  constructor(@Inject('winston.logger') protected readonly logger: Logger) {
+    super()
   }
 
-  abstract httpException(
-    err: Error,
-    req: Request,
-    res: Response,
-    next: NextFunction,
-  ): void
+  httpException(err: Error, _req: Request, res: Response, next: NextFunction) {
+    if (err instanceof HttpException) {
+      return res.status(err.status).json({
+        status: err.status,
+        message: err.message,
+        path: err.path,
+      })
+    }
 
-  abstract error(
-    err: Error,
-    req: Request,
-    res: Response,
-    next: NextFunction,
-  ): void
+    return next(err)
+  }
+
+  error(err: Error, _req: Request, res: Response, _next: NextFunction) {
+    return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
+      status: httpStatus.INTERNAL_SERVER_ERROR,
+      message: err.message,
+    })
+  }
 }

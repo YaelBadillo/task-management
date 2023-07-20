@@ -1,17 +1,12 @@
-import { Request, Response } from 'express'
+import { Response } from 'express'
 import { Service } from 'typedi'
 import httpStatus from 'http-status'
 
 import { UserService } from '@services'
-import { LogInUserDto, RegisterUserDto } from '@shared/dtos'
-
-interface RegisterUserRequest extends Request {
-  body: RegisterUserDto
-}
-
-interface LogInUserRequest extends Request {
-  body: LogInUserDto
-}
+import {
+  LogInUserRequest,
+  RegisterUserRequest,
+} from '@shared/interfaces/requests'
 
 @Service()
 export class AuthController {

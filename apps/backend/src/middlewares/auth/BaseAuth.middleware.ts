@@ -8,7 +8,7 @@ interface RequestWithUser extends Request {
 }
 
 export abstract class BaseAuthMiddleware {
-  protected abstract readonly jwtService: Jwt
+  protected abstract readonly jwt: Jwt
 
   async verify(req: RequestWithUser, _res: Response, next: NextFunction) {
     const accessToken = req.cookies?.access_token
@@ -17,7 +17,7 @@ export abstract class BaseAuthMiddleware {
         'Missing JWT: The required JSON Web Token is missing from the request cookies. Please include a valid token in the cookies to access this resource.',
       )
 
-    const decoded = await this.jwtService.verify(accessToken)
+    const decoded = await this.jwt.verify(accessToken)
     const user = await this.validate(decoded)
 
     req.user = user

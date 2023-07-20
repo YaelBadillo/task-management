@@ -12,15 +12,12 @@ export const register = (app: Express) => {
   const authController = Container.get<AuthController>(AuthController)
 
   router.post(
-    '/auth/sign-up',
+    '/sign-up',
     [validateRequestData(RegisterUserSchema)],
     errorCatcher(authController.signUp.bind(authController)),
   )
 
-  router.post(
-    '/auth/login',
-    errorCatcher(authController.logIn.bind(authController)),
-  )
+  router.post('/login', errorCatcher(authController.logIn.bind(authController)))
 
-  app.use('/api', router)
+  app.use('/api/auth', router)
 }
