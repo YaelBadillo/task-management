@@ -9,7 +9,7 @@ export const register = (app: Express) => {
 
   const staticController = Container.get<StaticController>(StaticController)
 
-  router.get('*', staticController.serve.bind(staticController))
+  router.get('/', staticController.serve.bind(staticController))
 
   app.use(router)
 }
