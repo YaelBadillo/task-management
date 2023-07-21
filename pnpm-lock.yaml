@@ -163,9 +163,6 @@ importers:
       formik:
         specifier: ^2.4.2
         version: 2.4.2(react@18.2.0)
-      http-exception:
-        specifier: workspace:^
-        version: link:../../packages/http-exception
       react:
         specifier: ^18.2.0
         version: 18.2.0
