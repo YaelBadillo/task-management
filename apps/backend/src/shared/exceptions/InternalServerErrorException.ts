@@ -1,5 +1,5 @@
-import { HttpException } from 'http-exception'
 import httpStatus from 'http-status'
+import { HttpException } from 'shared'
 
 export class InternalServerErrorException extends HttpException {
   constructor(message: string) {

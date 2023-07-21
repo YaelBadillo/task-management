@@ -1,6 +1,6 @@
 import { Request } from 'express'
+import { LogInUserDto, RegisterUserDto } from 'shared'
 
-import { LogInUserDto, RegisterUserDto } from '@shared/dtos'
 import { IUser } from '@database/models'
 
 export interface RegisterUserRequest extends Request {

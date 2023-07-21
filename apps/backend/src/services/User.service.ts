@@ -1,7 +1,7 @@
+import { LogInUserDto, RegisterUserDto } from 'shared'
 import { Inject, Service } from 'typedi'
 
 import { UserRepository } from '@database/repositories'
-import { LogInUserDto, RegisterUserDto } from '@shared/dtos'
 import { Encrypter } from '@utils/encrypter'
 import { UserModel } from '@database/models'
 import { BadRequestException } from '@shared/exceptions'

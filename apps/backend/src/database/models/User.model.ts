@@ -1,7 +1,7 @@
 import { Schema, model } from 'mongoose'
+import { UserDto } from 'shared'
 
 import { Model } from '@database/models/Model.interface'
-import { UserDto } from '@shared/dtos'
 
 export interface IUser {
   username: string
