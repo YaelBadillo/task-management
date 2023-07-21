@@ -96,9 +96,6 @@ importers:
       helmet:
         specifier: ^7.0.0
         version: 7.0.0
-      http-exception:
-        specifier: workspace:^
-        version: link:../../packages/http-exception
       http-status:
         specifier: ^1.6.2
         version: 1.6.2

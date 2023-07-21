@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
-import { HttpException } from 'http-exception'
 import httpStatus from 'http-status'
+import { HttpException } from 'shared'
 import { Inject, Service } from 'typedi'
 
 import { BaseErrorHandler } from '@utils/error-handler'
