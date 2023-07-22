@@ -1,31 +1,31 @@
 {
-  "name": "http-exception",
+  "name": "shared",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "packages/http-exception/src",
+  "sourceRoot": "packages/shared/src",
   "projectType": "library",
   "targets": {
     "build": {
       "executor": "@nx/js:tsc",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "packages/http-exception/dist",
-        "main": "packages/http-exception/src/index.ts",
-        "tsConfig": "packages/http-exception/tsconfig.lib.json",
-        "assets": ["packages/http-exception/*.md"]
+        "outputPath": "packages/shared/dist",
+        "main": "packages/shared/src/index.ts",
+        "tsConfig": "packages/shared/tsconfig.lib.json",
+        "assets": ["packages/shared/*.md"]
       }
     },
     "lint": {
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["packages/http-exception/**/*.ts"]
+        "lintFilePatterns": ["packages/shared/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "packages/http-exception/jest.config.ts",
+        "jestConfig": "packages/shared/jest.config.ts",
         "passWithNoTests": true
       },
       "configurations": {

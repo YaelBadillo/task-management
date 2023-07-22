@@ -4,7 +4,7 @@ import { config } from '@config'
 import { WinstonLogger } from '@utils/logger'
 import { UserModel } from '@database/models'
 import { BcryptEncrypter } from '@utils/encrypter'
-import { JwtService } from '@utils/jwt'
+import { Jwt } from '@utils/jwt'
 
 Container.set('config', config)
 
@@ -16,5 +16,5 @@ Container.set('user.model', UserModel)
 const bcryptEncrypter = Container.get<BcryptEncrypter>(BcryptEncrypter)
 Container.set('bcrypt.encrypter', bcryptEncrypter)
 
-const jwt = Container.get<JwtService>(JwtService)
+const jwt = Container.get<Jwt>(Jwt)
 Container.set('jsonwebtoken.jwt', jwt)

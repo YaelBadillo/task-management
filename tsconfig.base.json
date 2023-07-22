@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "http-exception": ["packages/http-exception/src/index.ts"]
+      "http-exception": ["packages/http-exception/src/index.ts"],
+      "shared": ["packages/shared/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

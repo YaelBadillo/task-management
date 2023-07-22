@@ -40,7 +40,7 @@
       "@controllers": ["./controllers"],
       "@controllers/*": ["./controllers/*"],
       "@services": ["./services"],
-      "@middlewares": ["./middlewares"],
+      "@middlewares/*": ["./middlewares/*"],
       "@utils/*": ["./utils/*"],
       "@shared/*": ["./shared/*"],
       "@database/*": ["./database/*"]
