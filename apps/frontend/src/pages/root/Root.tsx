@@ -1,6 +1,12 @@
 import { Link, Outlet } from 'react-router-dom'
+import { UserDto } from 'shared'
+
+import { AppContext } from '@context'
+import { useLocalStorage } from '@hooks'
 
 export const Root = () => {
+  const [userProfile] = useLocalStorage<UserDto>('userProfile')
+
   return (
     <>
       <div className="container m-auto flex-none">
@@ -23,7 +29,9 @@ export const Root = () => {
         </div>
       </div>
       <div className="container relative m-auto flex flex-1">
-        <Outlet />
+        <AppContext.Provider value={{ userProfile }}>
+          <Outlet />
+        </AppContext.Provider>
       </div>
     </>
   )
