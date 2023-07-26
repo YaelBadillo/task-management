@@ -9,7 +9,6 @@ export const useLocalStorage = <T>(
   const readValue = useCallback((): T | undefined => {
     try {
       const item = window.localStorage.getItem(key)
-      console.log(item)
       return item ? (parseJSON(item) as T) : initialValue
     } catch (error) {
       console.warn(`Error reading localStorage key “${key}”:`, error)
@@ -41,7 +40,7 @@ function parseJSON<T>(value: string | null): T | undefined {
   try {
     return value === 'undefined' ? undefined : JSON.parse(value ?? '')
   } catch {
-    console.log('parsing error on', { value })
+    console.warn('parsing error on', { value })
     return undefined
   }
 }

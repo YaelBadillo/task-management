@@ -28,7 +28,9 @@
       "@components/*": ["./components/*"],
       "@layouts": ["./layouts"],
       "@hooks": ["./hooks"],
-      "@utils/*": ["./utils/*"]
+      "@utils/*": ["./utils/*"],
+      "@context": ["./context"],
+      "@assets/*": ["./assets/*"]
     }
   },
   "include": ["src"],

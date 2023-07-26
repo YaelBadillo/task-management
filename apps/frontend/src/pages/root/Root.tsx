@@ -1,29 +1,50 @@
-import { Link, Outlet } from 'react-router-dom'
+import { Outlet } from 'react-router-dom'
+import { UserDto } from 'shared'
+
+import { AppContext } from '@context'
+import { useLocalStorage } from '@hooks'
+import { Container } from '@layouts'
+import { Navbar } from '@pages/root/Navbar'
+import {
+  Menu,
+  Option,
+  Title,
+  UserDropdown,
+  UserDropdownOption,
+} from '@pages/root/components/navbar'
 
 export const Root = () => {
+  const [userProfile] = useLocalStorage<UserDto>('userProfile')
+
   return (
     <>
-      <div className="container m-auto flex-none">
-        <div className="navbar bg-base-100">
-          <div className="flex-1">
-            <Link to="/" className="btn-ghost btn text-xl normal-case">
-              Task Management App
-            </Link>
-          </div>
-          <div className="flex-none">
-            <ul className="menu menu-horizontal gap-x-1 px-1">
-              <li>
-                <Link to="/auth/sign-up">Sign up</Link>
-              </li>
-              <li>
-                <Link to="/auth/login">Login</Link>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
+      <Container>
+        <Navbar>
+          <Title to="/">Task Management App</Title>
+          {userProfile ? (
+            <UserDropdown>
+              <UserDropdownOption
+                badge="primary"
+                badgeText={userProfile.username}
+              >
+                Profile
+              </UserDropdownOption>
+              <UserDropdownOption>Settings</UserDropdownOption>
+              <UserDropdownOption>Logout</UserDropdownOption>
+            </UserDropdown>
+          ) : (
+            <Menu>
+              <Option to="/auth/sign-up">Sign up</Option>
+              <Option to="/auth/login">Login</Option>
+            </Menu>
+          )}
+        </Navbar>
+      </Container>
+
       <div className="container relative m-auto flex flex-1">
-        <Outlet />
+        <AppContext.Provider value={{ userProfile }}>
+          <Outlet />
+        </AppContext.Provider>
       </div>
     </>
   )
