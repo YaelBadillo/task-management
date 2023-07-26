@@ -1,11 +1,17 @@
-import { Link, Outlet } from 'react-router-dom'
+import { Outlet } from 'react-router-dom'
 import { UserDto } from 'shared'
 
 import { AppContext } from '@context'
 import { useLocalStorage } from '@hooks'
 import { Container } from '@layouts'
 import { Navbar } from '@pages/root/Navbar'
-import { Menu, Option, Title } from '@pages/root/components/navbar'
+import {
+  Menu,
+  Option,
+  Title,
+  UserDropdown,
+  UserDropdownOption,
+} from '@pages/root/components/navbar'
 
 export const Root = () => {
   const [userProfile] = useLocalStorage<UserDto>('userProfile')
@@ -15,10 +21,23 @@ export const Root = () => {
       <Container>
         <Navbar>
           <Title to="/">Task Management App</Title>
-          <Menu>
-            <Option to="/auth/sign-up">Sign up</Option>
-            <Option to="/auth/login">Login</Option>
-          </Menu>
+          {userProfile ? (
+            <UserDropdown>
+              <UserDropdownOption
+                badge="primary"
+                badgeText={userProfile.username}
+              >
+                Profile
+              </UserDropdownOption>
+              <UserDropdownOption>Settings</UserDropdownOption>
+              <UserDropdownOption>Logout</UserDropdownOption>
+            </UserDropdown>
+          ) : (
+            <Menu>
+              <Option to="/auth/sign-up">Sign up</Option>
+              <Option to="/auth/login">Login</Option>
+            </Menu>
+          )}
         </Navbar>
       </Container>
 

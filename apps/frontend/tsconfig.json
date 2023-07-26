@@ -29,7 +29,8 @@
       "@layouts": ["./layouts"],
       "@hooks": ["./hooks"],
       "@utils/*": ["./utils/*"],
-      "@context": ["./context"]
+      "@context": ["./context"],
+      "@assets/*": ["./assets/*"]
     }
   },
   "include": ["src"],
