@@ -2,7 +2,6 @@ import { Outlet } from 'react-router-dom'
 import { UserDto } from 'shared'
 
 import { AppContext } from '@context'
-import { useLocalStorage } from '@hooks'
 import { Container } from '@layouts'
 import { Navbar } from '@pages/root/Navbar'
 import {
@@ -12,9 +11,10 @@ import {
   UserDropdown,
   UserDropdownOption,
 } from '@pages/root/components/navbar'
+import { useVerifyLogin } from '@pages/root/useVerifyLogin'
 
 export const Root = () => {
-  const [userProfile] = useLocalStorage<UserDto>('userProfile')
+  const userProfile = useVerifyLogin<UserDto>()
 
   return (
     <>
