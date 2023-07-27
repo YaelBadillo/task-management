@@ -11,29 +11,32 @@ import { Login } from '@pages/login'
 import { Root } from '@pages/root'
 import { Auth } from '@pages/auth'
 import { LazyDashboard as Dashboard } from '@pages/dashboard'
+import { AppContext } from '@context'
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Root />}>
-          <Route index element={<Home />} />
+    <AppContext.Provider value={{ userProfile: undefined }}>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Root />}>
+            <Route index element={<Home />} />
 
-          <Route path="auth" element={<Auth />}>
-            <Route index element={<Navigate to="/auth/login" />} />
+            <Route path="auth" element={<Auth />}>
+              <Route index element={<Navigate to="/auth/login" />} />
 
-            <Route path="sign-up" element={<Signup />} />
-            <Route path="login" element={<Login />} />
+              <Route path="sign-up" element={<Signup />} />
+              <Route path="login" element={<Login />} />
+            </Route>
+
+            <Route path="dashboard">
+              <Route index element={<Dashboard />} />
+            </Route>
           </Route>
 
-          <Route path="dashboard">
-            <Route index element={<Dashboard />} />
-          </Route>
-        </Route>
-
-        <Route path="*" element={<Navigate to="/" />} />
-      </Routes>
-    </Router>
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
+      </Router>
+    </AppContext.Provider>
   )
 }
 
