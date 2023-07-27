@@ -1,6 +1,7 @@
+import { useContext } from 'react'
+
 import { Outlet } from 'react-router-dom'
 
-import { AppContext } from '@context'
 import { Container } from '@layouts'
 import { Navbar } from '@pages/root/Navbar'
 import {
@@ -11,9 +12,11 @@ import {
   UserDropdownOption,
 } from '@pages/root/components/navbar'
 import { useVerifyLogin } from '@pages/root/useVerifyLogin'
+import { AppContext } from '@context'
 
 export const Root = () => {
   const authenticated = useVerifyLogin()
+  const { userProfile } = useContext(AppContext)
 
   return (
     <>
@@ -22,7 +25,10 @@ export const Root = () => {
           <Title to="/">Task Management App</Title>
           {authenticated ? (
             <UserDropdown>
-              <UserDropdownOption badge="primary" badgeText={'another name'}>
+              <UserDropdownOption
+                badge="primary"
+                badgeText={userProfile?.username}
+              >
                 Profile
               </UserDropdownOption>
               <UserDropdownOption>Settings</UserDropdownOption>
@@ -38,9 +44,7 @@ export const Root = () => {
       </Container>
 
       <div className="container relative m-auto flex flex-1">
-        <AppContext.Provider value={{ userProfile: undefined }}>
-          <Outlet />
-        </AppContext.Provider>
+        <Outlet />
       </div>
     </>
   )
