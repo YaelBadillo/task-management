@@ -2,24 +2,21 @@ import { useEffect } from 'react'
 
 import { useLocation, useNavigate } from 'react-router-dom'
 
-import { useReadLocalStorage } from '@hooks'
+import { useReadCookie } from '@pages/root/useReadCookie'
 
-export const useVerifyLogin = <T>() => {
+export const useVerifyLogin = () => {
+  const [authenticated, reload] = useReadCookie<boolean>('authenticated')
   const { pathname } = useLocation()
   const navigate = useNavigate()
 
-  const userProfileKey = 'userProfile'
-  const [userProfile, readStorage] = useReadLocalStorage<T>(userProfileKey)
+  useEffect(() => {
+    reload()
+  }, [pathname, reload])
 
   useEffect(() => {
-    readStorage()
-  }, [pathname, readStorage])
-
-  useEffect(() => {
-    if (pathname.includes('dashboard') && userProfile === undefined) {
+    if (pathname.includes('dashboard') && authenticated !== true)
       navigate('/auth/login')
-    }
-  }, [pathname, userProfile, navigate])
+  }, [authenticated, navigate, pathname])
 
-  return userProfile
+  return authenticated
 }
