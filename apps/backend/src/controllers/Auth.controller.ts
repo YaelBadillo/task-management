@@ -20,9 +20,12 @@ export class AuthController {
 
   async logIn(req: LogInUserRequest, res: Response) {
     const accessToken = await this.userService.logIn(req.body)
+    const authenticated = true
+    const httpOnly = true
 
     res
-      .cookie('access_token', accessToken, { httpOnly: true })
+      .cookie('access_token', accessToken, { httpOnly })
+      .cookie('authenticated', authenticated)
       .status(httpStatus.OK)
       .send()
   }
