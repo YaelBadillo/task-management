@@ -6,11 +6,11 @@ interface ErrorResponse {
   path?: string
 }
 
-export const fetchData = async <T, D = object>(
+export const fetchData = async <T, D>(
   url: string,
   method: Method,
-  body: D,
-  withCredentials: boolean,
+  body?: D,
+  withCredentials = false,
 ): Promise<T> => {
   try {
     const response = await axios<T, AxiosResponse<T, D>, D>(url, {

@@ -6,18 +6,16 @@ interface UseFormProperties<D> {
   url: string
   initialValues: D
   withCredentials?: boolean
-  validate?:
-    | ((values: D) => void | object | Promise<FormikErrors<D>>)
-    | undefined
-  initialTouched?: FormikTouched<D> | undefined
+  validate?: (values: D) => void | object | Promise<FormikErrors<D>>
+  initialTouched?: FormikTouched<D>
 }
 
 export const useForm = <D extends FormikValues, T = object>({
   url,
   initialValues,
-  withCredentials = false,
-  validate = undefined,
-  initialTouched = undefined,
+  withCredentials,
+  validate,
+  initialTouched,
 }: UseFormProperties<D>) => {
   const formik = useFormik<D>({
     initialValues,
@@ -29,12 +27,12 @@ export const useForm = <D extends FormikValues, T = object>({
   })
 
   const method = 'post'
-  const { execute, status, value, error } = useFetch<T, D>(
+  const { execute, status, value, error } = useFetch<T, D>({
     url,
     method,
-    formik.values,
+    body: formik.values,
     withCredentials,
-  )
+  })
 
   return { formik, status, value, error }
 }
