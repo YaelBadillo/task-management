@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 
 import { useForm } from '@hooks'
 import { validate } from '@utils/validate'
-import { SignupSchema } from '@pages/signup/SignupSchema'
+import { SignupSchema } from '@signup/SignupSchema'
 
 export const useSignup = () => {
   const { formik, status } = useForm({
