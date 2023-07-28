@@ -37,7 +37,13 @@ export const Login = () => {
           onBlur={formik.handleBlur}
           onChange={formik.handleChange}
         />
-        <Button>Continue</Button>
+        <Button
+          disabled={
+            formik.errors.username || formik.errors.password ? true : false
+          }
+        >
+          Continue
+        </Button>
         <AuthSwitch linkText="Sign up" linkPath="/auth/sign-up">
           Don't have an account?
         </AuthSwitch>
