@@ -27,6 +27,7 @@
       "@pages": ["./pages"],
       "@pages/*": ["./pages/*"],
       "@dashboard/*": ["./pages/dashboard/*"],
+      "@login/*": ["./pages/login/*"],
       "@components/*": ["./components/*"],
       "@layouts": ["./layouts"],
       "@hooks": ["./hooks"],
