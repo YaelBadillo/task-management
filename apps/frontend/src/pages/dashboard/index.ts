@@ -1,2 +1,2 @@
-export * from './PrivateRoute'
 export * from './LazyDashboard'
+export * from './PrivateRoute'

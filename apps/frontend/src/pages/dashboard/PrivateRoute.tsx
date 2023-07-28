@@ -3,7 +3,7 @@ import { FC, useContext, useEffect } from 'react'
 import { Navigate } from 'react-router-dom'
 
 import { AppContext } from '@context'
-import { useReadCookie } from '@pages/dashboard/useReadCookie'
+import { useReadCookie } from '@hooks'
 
 interface PrivateRouteProps {
   redirect: string
