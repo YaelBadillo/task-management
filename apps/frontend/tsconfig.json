@@ -24,6 +24,7 @@
     "baseUrl": "./src",
     "paths": {
       "@app": ["./App.tsx"],
+      "@pages": ["./pages"],
       "@pages/*": ["./pages/*"],
       "@components/*": ["./components/*"],
       "@layouts": ["./layouts"],

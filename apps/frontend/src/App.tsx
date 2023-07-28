@@ -5,12 +5,15 @@ import {
   Routes,
 } from 'react-router-dom'
 
-import { Home } from '@pages/home'
-import { Signup } from '@pages/signup'
-import { Login } from '@pages/login'
-import { Root } from '@pages/root'
-import { Auth, PublicRoute } from '@pages/auth'
-import { LazyDashboard as Dashboard, PrivateRoute } from '@pages/dashboard'
+import {
+  Auth,
+  LazyDashboard as Dashboard,
+  Home,
+  Login,
+  Root,
+  Signup,
+} from '@pages'
+import { PrivateRoute, PublicRoute } from '@components/routes'
 
 function App() {
   return (
