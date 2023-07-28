@@ -6,6 +6,7 @@ interface InputProps {
   name: string
   value: string
   error?: string
+  disable?: boolean
   onBlur: FocusEventHandler<HTMLInputElement>
   onChange: ChangeEventHandler<HTMLInputElement>
 }
@@ -16,6 +17,7 @@ export const Input: FC<InputProps> = ({
   name,
   value,
   error,
+  disable,
   onBlur,
   onChange,
 }) => {
@@ -26,6 +28,7 @@ export const Input: FC<InputProps> = ({
         placeholder={placeholder}
         name={name}
         value={value}
+        disabled={disable}
         onBlur={onBlur}
         onChange={onChange}
         className={`input-bordered ${
