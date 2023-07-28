@@ -50,7 +50,17 @@ export const Signup = () => {
           onBlur={formik.handleBlur}
           onChange={formik.handleChange}
         />
-        <Button>Sign up</Button>
+        <Button
+          disabled={
+            formik.errors.username ||
+            formik.errors.password ||
+            formik.errors.passwordConfirm
+              ? true
+              : false
+          }
+        >
+          Sign up
+        </Button>
       </Form>
       <AuthSwitch linkText="Login" linkPath="/auth/login">
         Already have an account?
