@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useReducer } from 'react'
 
 import { Outlet } from 'react-router-dom'
 
@@ -11,12 +11,12 @@ import {
   UserDropdown,
   UserDropdownOption,
 } from '@pages/root/components/navbar'
-import { useVerifyLogin } from '@pages/root/useVerifyLogin'
 import { AppContext } from '@context'
+import { appReducer } from '@utils/app-reducer'
 
 export const Root = () => {
-  const authenticated = useVerifyLogin()
-  const { userProfile } = useContext(AppContext)
+  const [appState, dispatch] = useReducer(appReducer, {})
+  const { userProfile, authenticated } = appState
 
   return (
     <>
@@ -44,7 +44,9 @@ export const Root = () => {
       </Container>
 
       <div className="container relative m-auto flex flex-1">
-        <Outlet />
+        <AppContext.Provider value={{ ...appState, dispatch }}>
+          <Outlet />
+        </AppContext.Provider>
       </div>
     </>
   )
