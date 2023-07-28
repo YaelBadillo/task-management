@@ -28,6 +28,7 @@
       "@pages/*": ["./pages/*"],
       "@dashboard/*": ["./pages/dashboard/*"],
       "@login/*": ["./pages/login/*"],
+      "@root/*": ["./pages/root/*"],
       "@components/*": ["./components/*"],
       "@layouts": ["./layouts"],
       "@hooks": ["./hooks"],

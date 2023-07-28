@@ -3,14 +3,14 @@ import { useReducer } from 'react'
 import { Outlet } from 'react-router-dom'
 
 import { Container } from '@layouts'
-import { Navbar } from '@pages/root/Navbar'
+import { Navbar } from '@root/Navbar'
 import {
   Menu,
   Option,
   Title,
   UserDropdown,
   UserDropdownOption,
-} from '@pages/root/components/navbar'
+} from '@root/components/navbar'
 import { AppContext } from '@context'
 import { appReducer } from '@utils/app-reducer'
 import { useReadCookie } from '@hooks'
