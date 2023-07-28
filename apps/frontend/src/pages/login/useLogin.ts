@@ -3,6 +3,8 @@ import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { useForm } from '@hooks'
+import { validate } from '@utils/validate'
+import { LoginSchema } from '@login/LoginSchema'
 
 export const useLogin = () => {
   const { formik, status } = useForm({
@@ -12,6 +14,11 @@ export const useLogin = () => {
       password: '',
     },
     withCredentials: true,
+    validate: validate(LoginSchema),
+    initialTouched: {
+      username: false,
+      password: false,
+    },
   })
   const navigate = useNavigate()
 
