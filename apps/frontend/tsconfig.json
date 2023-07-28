@@ -24,7 +24,12 @@
     "baseUrl": "./src",
     "paths": {
       "@app": ["./App.tsx"],
+      "@pages": ["./pages"],
       "@pages/*": ["./pages/*"],
+      "@dashboard/*": ["./pages/dashboard/*"],
+      "@login/*": ["./pages/login/*"],
+      "@root/*": ["./pages/root/*"],
+      "@signup/*": ["./pages/signup/*"],
       "@components/*": ["./components/*"],
       "@layouts": ["./layouts"],
       "@hooks": ["./hooks"],

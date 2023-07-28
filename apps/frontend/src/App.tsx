@@ -5,12 +5,15 @@ import {
   Routes,
 } from 'react-router-dom'
 
-import { Home } from '@pages/home'
-import { Signup } from '@pages/signup'
-import { Login } from '@pages/login'
-import { Root } from '@pages/root'
-import { Auth } from '@pages/auth'
-import { LazyDashboard as Dashboard, PrivateRoute } from '@pages/dashboard'
+import {
+  Auth,
+  LazyDashboard as Dashboard,
+  Home,
+  Login,
+  Root,
+  Signup,
+} from '@pages'
+import { PrivateRoute, PublicRoute } from '@components/routes'
 
 function App() {
   return (
@@ -19,7 +22,14 @@ function App() {
         <Route path="/" element={<Root />}>
           <Route index element={<Home />} />
 
-          <Route path="auth" element={<Auth />}>
+          <Route
+            path="auth"
+            element={
+              <PublicRoute redirect="/dashboard">
+                <Auth />
+              </PublicRoute>
+            }
+          >
             <Route index element={<Navigate to="/auth/login" />} />
 
             <Route path="sign-up" element={<Signup />} />

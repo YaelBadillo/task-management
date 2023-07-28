@@ -16,7 +16,7 @@ export const useLogin = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (status === 'success') navigate('/dashboard')
+    if (status === 'success') navigate('/dashboard', { replace: true })
   }, [status, navigate])
 
   return { formik, status }

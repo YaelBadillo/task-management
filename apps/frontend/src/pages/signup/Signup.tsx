@@ -1,6 +1,6 @@
 import { AuthSwitch, Button, Form, Heading, Input } from '@components/auth-form'
 import { Loading } from '@components/loading'
-import { useSignup } from '@pages/signup/useSignup'
+import { useSignup } from '@signup/useSignup'
 
 export const Signup = () => {
   const { formik, status } = useSignup()
