@@ -13,9 +13,14 @@ import {
 } from '@pages/root/components/navbar'
 import { AppContext } from '@context'
 import { appReducer } from '@utils/app-reducer'
+import { useReadCookie } from '@hooks'
 
 export const Root = () => {
-  const [appState, dispatch] = useReducer(appReducer, {})
+  const [authenticatedCookie] = useReadCookie<boolean>('authenticated')
+
+  const [appState, dispatch] = useReducer(appReducer, {
+    authenticated: authenticatedCookie,
+  })
   const { userProfile, authenticated } = appState
 
   return (
