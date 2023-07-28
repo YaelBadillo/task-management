@@ -1,6 +1,6 @@
 import { Suspense, lazy } from 'react'
 
-const Dashboard = lazy(() => import('@pages/dashboard/Dashboard'))
+const Dashboard = lazy(() => import('@dashboard/Dashboard'))
 
 export const LazyDashboard = () => {
   return (

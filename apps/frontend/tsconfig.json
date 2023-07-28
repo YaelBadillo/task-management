@@ -26,6 +26,7 @@
       "@app": ["./App.tsx"],
       "@pages": ["./pages"],
       "@pages/*": ["./pages/*"],
+      "@dashboard/*": ["./pages/dashboard/*"],
       "@components/*": ["./components/*"],
       "@layouts": ["./layouts"],
       "@hooks": ["./hooks"],
