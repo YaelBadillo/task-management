@@ -7,7 +7,7 @@ import { validate } from '@utils/validate'
 import { LoginSchema } from '@login/LoginSchema'
 
 export const useLogin = () => {
-  const { formik, status } = useForm({
+  const { form, status } = useForm({
     url: 'http://localhost:3000/api/auth/login',
     initialValues: {
       username: '',
@@ -26,5 +26,5 @@ export const useLogin = () => {
     if (status === 'success') navigate('/dashboard', { replace: true })
   }, [status, navigate])
 
-  return { formik, status }
+  return { form, status }
 }
