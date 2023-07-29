@@ -36,7 +36,7 @@ export const Signup = () => {
           placeholder="Confirm password"
           name="passwordConfirm"
           value={passwordConfirm.value}
-          error={password.error}
+          error={passwordConfirm.error}
           onBlur={handleBlur}
           onChange={handleChange}
         />
