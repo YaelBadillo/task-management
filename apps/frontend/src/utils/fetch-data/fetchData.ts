@@ -1,4 +1,5 @@
 import axios, { AxiosError, AxiosResponse, Method } from 'axios'
+import { HttpException } from 'shared'
 
 interface ErrorResponse {
   status: number
@@ -28,7 +29,14 @@ export const fetchData = async <T, D>(
 }
 
 const handleError = (error: AxiosError<ErrorResponse>) => {
-  if (error.response) throw new Error(error.response?.data.message)
+  if (error.response) {
+    const { status, message, path } = error.response.data
+    if (error.response.data.path) {
+      throw new HttpException(status, message, path)
+    }
+
+    throw new Error(message)
+  }
 
   if (error.request) throw new Error(error.request)
 

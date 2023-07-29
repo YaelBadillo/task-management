@@ -1,6 +1,9 @@
+import { useCallback } from 'react'
+
+import { HttpException } from 'shared'
+
 import { fetchData } from '@utils/fetch-data'
 import { useAsync } from '@hooks'
-import { useCallback } from 'react'
 
 interface UseFetchConfig<D> {
   url: string
@@ -23,5 +26,5 @@ export const useFetch = <T, D = undefined>({
     [url, method, body, withCredentials],
   )
 
-  return useAsync<T, Error>(fetchDataCallback, immediate)
+  return useAsync<T, Error | HttpException>(fetchDataCallback, immediate)
 }
