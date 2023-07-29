@@ -1,24 +1,11 @@
-import { useFormik, FormikValues, FormikErrors, FormikTouched } from 'formik'
+import { useMemo } from 'react'
+
+import { useFormik, FormikValues } from 'formik'
 
 import { useFetch } from '@hooks'
-import { useMemo } from 'react'
 import { hasErrors } from '@utils/form-errors'
-
-interface UseFormProperties<D> {
-  url: string
-  initialValues: D
-  withCredentials?: boolean
-  validate?: (values: D) => void | object | Promise<FormikErrors<D>>
-  initialTouched?: FormikTouched<D>
-}
-
-type Fields<Values extends FormikValues> = {
-  [K in keyof Values]: {
-    value: Values[K]
-    error: FormikErrors<Values>[K]
-    touched: FormikTouched<Values>[K]
-  }
-}
+import { Fields, UseFormProperties } from '@use-form/useForm.types'
+import { getFieldProps } from '@use-form/getFieldProps'
 
 export const useForm = <D extends FormikValues, T = object>({
   url,
@@ -43,19 +30,9 @@ export const useForm = <D extends FormikValues, T = object>({
     body: formik.values,
     withCredentials,
   })
+  formik.errors
 
-  const fields: Fields<D> = useMemo(
-    () =>
-      Object.keys(formik.values).reduce((acc, fieldName) => {
-        acc[fieldName as keyof D] = {
-          value: formik.values[fieldName],
-          error: formik.errors[fieldName],
-          touched: formik.touched[fieldName],
-        }
-        return acc
-      }, {} as Fields<D>),
-    [formik.values, formik.errors, formik.touched],
-  )
+  const fields: Fields<D> = useMemo(() => getFieldProps(formik), [formik])
 
   const hasError = useMemo(() => hasErrors(formik.errors), [formik.errors])
 

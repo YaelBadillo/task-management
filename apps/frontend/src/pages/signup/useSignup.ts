@@ -7,7 +7,7 @@ import { validate } from '@utils/validate'
 import { SignupSchema } from '@signup/SignupSchema'
 
 export const useSignup = () => {
-  const { formik, status } = useForm({
+  const { form, status } = useForm({
     url: 'http://localhost:3000/api/auth/sign-up',
     initialValues: {
       username: '',
@@ -27,5 +27,5 @@ export const useSignup = () => {
     if (status === 'success') navigate('/auth/login')
   }, [status, navigate])
 
-  return { formik, status }
+  return { form, status }
 }

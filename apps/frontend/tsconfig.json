@@ -33,6 +33,7 @@
       "@components/*": ["./components/*"],
       "@layouts": ["./layouts"],
       "@hooks": ["./hooks"],
+      "@use-form/*": ["./hooks/use-form/*"],
       "@utils/*": ["./utils/*"],
       "@context": ["./context"],
       "@assets/*": ["./assets/*"]

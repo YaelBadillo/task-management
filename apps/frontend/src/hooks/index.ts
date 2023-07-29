@@ -1,6 +1,6 @@
 export * from './useAsync'
 export * from './useFetch'
-export * from './useForm'
+export * from './use-form'
 export * from './useLocalStorage'
 export * from './useReadLocalStorage'
 export * from './useReadCookie'
