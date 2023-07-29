@@ -49,7 +49,10 @@ export const useForm = <D extends FormikValues, T = object>({
       Object.keys(formik.values).reduce((acc, fieldName) => {
         acc[fieldName as keyof D] = {
           value: formik.values[fieldName],
-          error: formik.errors[fieldName],
+          error:
+            formik.errors[fieldName] && formik.touched[fieldName]
+              ? formik.errors[fieldName]
+              : undefined,
           touched: formik.touched[fieldName],
         }
         return acc
