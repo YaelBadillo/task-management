@@ -11,8 +11,8 @@ export const SignupSchema = z.object({
         .max(20, { message: 'Username must contain at most 20 character(s)' }),
       password: z
         .string()
-        .min(7, { message: 'Username must contain at least 7 character(s)' })
-        .max(30, { message: 'Username must contain at most 20 character(s)' }),
+        .min(7, { message: 'Password must contain at least 7 character(s)' })
+        .max(30, { message: 'Password must contain at most 20 character(s)' }),
       passwordConfirm: z.string(),
     })
     .refine(data => data.password === data.passwordConfirm, {
