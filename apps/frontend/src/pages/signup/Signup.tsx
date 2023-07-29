@@ -1,9 +1,11 @@
 import { AuthSwitch, Button, Form, Heading, Input } from '@components/auth-form'
 import { Loading } from '@components/loading'
 import { useSignup } from '@signup/useSignup'
+import { hasError, hasErrors } from '@utils/form-errors'
 
 export const Signup = () => {
   const { formik, status } = useSignup()
+  const { errors, touched } = formik
 
   if (status === 'pending') return <Loading />
 
@@ -16,11 +18,7 @@ export const Signup = () => {
           placeholder="Username"
           name="username"
           value={formik.values.username}
-          error={
-            formik.touched.username && formik.errors.username
-              ? formik.errors.username
-              : undefined
-          }
+          error={hasError(errors.username, touched.username)}
           onBlur={formik.handleBlur}
           onChange={formik.handleChange}
         />
@@ -29,11 +27,7 @@ export const Signup = () => {
           placeholder="Password"
           name="password"
           value={formik.values.password}
-          error={
-            formik.touched.password && formik.errors.password
-              ? formik.errors.password
-              : undefined
-          }
+          error={hasError(errors.password, touched.password)}
           onBlur={formik.handleBlur}
           onChange={formik.handleChange}
         />
@@ -42,25 +36,11 @@ export const Signup = () => {
           placeholder="Confirm password"
           name="passwordConfirm"
           value={formik.values.passwordConfirm}
-          error={
-            formik.touched.passwordConfirm && formik.errors.passwordConfirm
-              ? formik.errors.passwordConfirm
-              : undefined
-          }
+          error={hasError(errors.passwordConfirm, touched.passwordConfirm)}
           onBlur={formik.handleBlur}
           onChange={formik.handleChange}
         />
-        <Button
-          disabled={
-            formik.errors.username ||
-            formik.errors.password ||
-            formik.errors.passwordConfirm
-              ? true
-              : false
-          }
-        >
-          Sign up
-        </Button>
+        <Button disabled={hasErrors(errors)}>Sign up</Button>
       </Form>
       <AuthSwitch linkText="Login" linkPath="/auth/login">
         Already have an account?
