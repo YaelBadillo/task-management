@@ -1,6 +1,7 @@
 import { useMemo } from 'react'
 
-import { useFormik, FormikValues } from 'formik'
+import { useFormik, FormikValues, FormikErrors } from 'formik'
+import { HttpException } from 'shared'
 
 import { useFetch } from '@hooks'
 import { hasErrors } from '@utils/form-errors'
@@ -32,7 +33,19 @@ export const useForm = <D extends FormikValues, T = object>({
   })
   formik.errors
 
-  const fields: Fields<D> = useMemo(() => getFieldProps(formik), [formik])
+  const previousFields: Fields<D> = useMemo(() => {
+    return getFieldProps(formik)
+  }, [formik])
+
+  const fields: Fields<D> = useMemo(() => {
+    if (status === 'error' && error instanceof HttpException) {
+      previousFields[error.path as keyof D].error = error.message
+        ? (error.message as FormikErrors<D>[keyof D])
+        : previousFields[error.path as keyof D].error
+    }
+
+    return previousFields
+  }, [previousFields, status, error])
 
   const hasError = useMemo(() => hasErrors(formik.errors), [formik.errors])
 
