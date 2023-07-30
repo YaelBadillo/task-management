@@ -26,7 +26,7 @@ export class Server {
     this.express = express()
     this.logger = Container.get(WinstonLogger)
 
-    this.express.use(morgan('dev'))
+    this.setRequestLogger()
     this.express.use(bodyParser.json())
     this.express.use(cookieParser())
     this.express.use(
@@ -35,11 +35,13 @@ export class Server {
     this.setDevCors()
 
     const authMiddleware = Container.get<BaseAuthMiddleware>(AuthMiddleware)
+    const avoidablePaths = ['auth']
     this.express.use(
       errorCatcher(
-        conditionalMiddleware(authMiddleware.verify.bind(authMiddleware), [
-          'auth',
-        ]),
+        conditionalMiddleware(
+          authMiddleware.verify.bind(authMiddleware),
+          avoidablePaths,
+        ),
       ),
     )
 
@@ -81,11 +83,18 @@ export class Server {
     return this.httpServer
   }
 
+  private setRequestLogger() {
+    const env = this.config.get('env')
+    const devFormat = 'dev'
+    const tinyFormat = 'tiny'
+    this.express.use(morgan(env === 'development' ? devFormat : tinyFormat))
+  }
+
   private setDevCors() {
     if (this.config.get('env') === 'development') {
-      this.express.use(
-        cors({ origin: 'http://localhost:5173', credentials: true }),
-      )
+      const origin = 'http://localhost:5173'
+      const credentials = true
+      this.express.use(cors({ origin, credentials }))
     }
   }
 }
