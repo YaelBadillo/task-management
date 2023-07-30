@@ -35,11 +35,13 @@ export class Server {
     this.setDevCors()
 
     const authMiddleware = Container.get<BaseAuthMiddleware>(AuthMiddleware)
+    const avoidablePaths = ['auth']
     this.express.use(
       errorCatcher(
-        conditionalMiddleware(authMiddleware.verify.bind(authMiddleware), [
-          'auth',
-        ]),
+        conditionalMiddleware(
+          authMiddleware.verify.bind(authMiddleware),
+          avoidablePaths,
+        ),
       ),
     )
 
