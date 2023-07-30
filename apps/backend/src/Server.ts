@@ -26,7 +26,7 @@ export class Server {
     this.express = express()
     this.logger = Container.get(WinstonLogger)
 
-    this.express.use(morgan('dev'))
+    this.setRequestLogger()
     this.express.use(bodyParser.json())
     this.express.use(cookieParser())
     this.express.use(
@@ -81,6 +81,13 @@ export class Server {
 
   get server() {
     return this.httpServer
+  }
+
+  private setRequestLogger() {
+    const env = this.config.get('env')
+    const devFormat = 'dev'
+    const tinyFormat = 'tiny'
+    this.express.use(morgan(env === 'development' ? devFormat : tinyFormat))
   }
 
   private setDevCors() {
