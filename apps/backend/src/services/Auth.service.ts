@@ -8,7 +8,7 @@ import { BadRequestException } from '@shared/exceptions'
 import { Jwt } from '@utils/jwt'
 
 @Service()
-export class UserService {
+export class AuthService {
   constructor(
     private readonly userRepository: UserRepository,
     @Inject('jsonwebtoken.jwt') private readonly jwt: Jwt,
