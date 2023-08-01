@@ -45,8 +45,11 @@ export class AuthService {
     if (!arePasswordsEqual)
       throw new BadRequestException('Incorrect password', 'password')
 
-    const token = this.jwt.sign(user.username)
-    await this.tokenRepository.register(token, user._id)
+    let token = (await this.tokenRepository.findOneByUserId(user._id)).token
+    if (!token) {
+      token = this.jwt.sign(user.username)
+      await this.tokenRepository.register(token, user._id)
+    }
 
     return token
   }

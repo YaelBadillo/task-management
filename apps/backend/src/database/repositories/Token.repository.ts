@@ -23,6 +23,15 @@ export class TokenRepository extends MongooseRepository<Token> {
     }
   }
 
+  async findOneByUserId(userId: ObjectId): Promise<Token> {
+    try {
+      const foundToken = await this.model.findOne({ userId })
+      return foundToken
+    } catch (error) {
+      throw new InternalServerErrorException('Token could not be found.')
+    }
+  }
+
   async findOneByTokenAndUserId(
     token: string,
     userId: ObjectId,
