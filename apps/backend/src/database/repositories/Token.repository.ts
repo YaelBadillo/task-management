@@ -8,7 +8,7 @@ import { InternalServerErrorException } from '@shared/exceptions'
 @Service()
 export class TokenRepository extends MongooseRepository<Token> {
   constructor(
-    @Inject('user.model')
+    @Inject('token.model')
     protected readonly model: Model<Token>,
   ) {
     super()

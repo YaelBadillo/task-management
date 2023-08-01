@@ -1,10 +1,14 @@
+import { ObjectId } from 'mongoose'
 import { LogInUserDto, RegisterUserDto } from 'shared'
 import { Inject, Service } from 'typedi'
 
 import { TokenRepository, UserRepository } from '@database/repositories'
 import { Encrypter } from '@utils/encrypter'
 import { UserModel } from '@database/models'
-import { BadRequestException } from '@shared/exceptions'
+import {
+  BadRequestException,
+  InternalServerErrorException,
+} from '@shared/exceptions'
 import { Jwt } from '@utils/jwt'
 
 @Service()
@@ -45,12 +49,23 @@ export class AuthService {
     if (!arePasswordsEqual)
       throw new BadRequestException('Incorrect password', 'password')
 
-    let token = (await this.tokenRepository.findOneByUserId(user._id)).token
+    let token: string | undefined = (
+      await this.tokenRepository.findOneByUserId(user._id)
+    )?.token
     if (!token) {
       token = this.jwt.sign(user.username)
       await this.tokenRepository.register(token, user._id)
     }
 
     return token
+  }
+
+  async logOut(token: string, userId: ObjectId): Promise<void> {
+    const { acknowledged: isTokenDeleted } =
+      await this.tokenRepository.deleteOneByTokenAndUserId(token, userId)
+    if (!isTokenDeleted)
+      throw new InternalServerErrorException(
+        'An unexpected error ocurred while logging out.',
+      )
   }
 }

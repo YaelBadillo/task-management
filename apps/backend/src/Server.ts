@@ -35,7 +35,7 @@ export class Server {
     this.setDevCors()
 
     const authMiddleware = Container.get<BaseAuthMiddleware>(AuthMiddleware)
-    const avoidablePaths = ['auth']
+    const avoidablePaths = ['login', 'sign-up']
     this.express.use(
       errorCatcher(
         conditionalMiddleware(

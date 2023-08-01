@@ -1,10 +1,11 @@
-import { Request, Response } from 'express'
+import { Response } from 'express'
 import { Service } from 'typedi'
 import httpStatus from 'http-status'
 
 import { AuthService } from '@services'
 import {
   LogInUserRequest,
+  LogoutRequest,
   RegisterUserRequest,
 } from '@shared/interfaces/requests'
 
@@ -30,15 +31,15 @@ export class AuthController {
       .send()
   }
 
-  logout(_req: Request, res: Response) {
-    const accessToken = ''
-    const authenticated = false
-    const httpOnly = true
+  async logOut({ cookies, user }: LogoutRequest, res: Response) {
+    const { access_token: accessToken } = cookies
+    const { _id: userId } = user
+    await this.authService.logOut(accessToken, userId)
 
-    res
-      .cookie('access_token', accessToken, { httpOnly })
-      .cookie('authenticated', authenticated)
-      .status(httpStatus.OK)
-      .send()
+    Object.keys(cookies).forEach(cookie => {
+      res.clearCookie(cookie)
+    })
+
+    res.status(httpStatus.OK).send()
   }
 }
