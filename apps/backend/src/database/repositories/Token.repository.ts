@@ -14,7 +14,7 @@ export class TokenRepository extends MongooseRepository<Token> {
     super()
   }
 
-  async register(token: string, userId: ObjectId) {
+  async register(token: string, userId: ObjectId): Promise<Token> {
     try {
       const registeredToken = await this.model.create<Token>({ token, userId })
       return registeredToken
@@ -23,7 +23,10 @@ export class TokenRepository extends MongooseRepository<Token> {
     }
   }
 
-  async findOneByTokenAndUserId(token: string, userId: ObjectId) {
+  async findOneByTokenAndUserId(
+    token: string,
+    userId: ObjectId,
+  ): Promise<Token> {
     try {
       const foundToken = await this.model.findOne({ token, userId })
       return foundToken
