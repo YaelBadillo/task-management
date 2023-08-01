@@ -1,4 +1,4 @@
-import { Response } from 'express'
+import { Request, Response } from 'express'
 import { Service } from 'typedi'
 import httpStatus from 'http-status'
 
@@ -21,6 +21,18 @@ export class AuthController {
   async logIn(req: LogInUserRequest, res: Response) {
     const accessToken = await this.authService.logIn(req.body)
     const authenticated = true
+    const httpOnly = true
+
+    res
+      .cookie('access_token', accessToken, { httpOnly })
+      .cookie('authenticated', authenticated)
+      .status(httpStatus.OK)
+      .send()
+  }
+
+  logout(_req: Request, res: Response) {
+    const accessToken = ''
+    const authenticated = false
     const httpOnly = true
 
     res

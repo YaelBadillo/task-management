@@ -16,8 +16,11 @@ export const register = (app: Express) => {
     [validateRequestData(RegisterUserSchema)],
     errorCatcher(authController.signUp.bind(authController)),
   )
-
   router.post('/login', errorCatcher(authController.logIn.bind(authController)))
+  router.delete(
+    '/logout',
+    errorCatcher(authController.logout.bind(AuthController)),
+  )
 
   app.use('/api/auth', router)
 }
