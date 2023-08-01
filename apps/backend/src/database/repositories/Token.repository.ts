@@ -32,15 +32,12 @@ export class TokenRepository extends MongooseRepository<Token> {
     }
   }
 
-  async findOneByTokenAndUserId(
-    token: string,
-    userId: ObjectId,
-  ): Promise<Token> {
+  async deleteOneByTokenAndUserId(token: string, userId: ObjectId) {
     try {
-      const foundToken = await this.model.findOne({ token, userId })
-      return foundToken
+      const deleteResult = await this.model.deleteOne({ token, userId })
+      return deleteResult
     } catch (error) {
-      throw new InternalServerErrorException('Token could not be found.')
+      throw new InternalServerErrorException('Token could not be deleted.')
     }
   }
 }
