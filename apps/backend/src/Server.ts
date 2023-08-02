@@ -36,26 +36,7 @@ export class Server {
     this.setDevCors()
 
     const avoidablePaths = ['login', 'sign-up']
-
-    const searchTokenMiddleware = Container.get(SearchTokenMiddleware)
-    this.express.use(
-      errorCatcher(
-        conditionalMiddleware(
-          searchTokenMiddleware.dispatch.bind(searchTokenMiddleware),
-          avoidablePaths,
-        ),
-      ),
-    )
-
-    const authMiddleware = Container.get<BaseAuthMiddleware>(AuthMiddleware)
-    this.express.use(
-      errorCatcher(
-        conditionalMiddleware(
-          authMiddleware.verify.bind(authMiddleware),
-          avoidablePaths,
-        ),
-      ),
-    )
+    this.setAuthMiddlewares(avoidablePaths)
 
     registerRoutes(this.express)
 
@@ -108,5 +89,27 @@ export class Server {
       const credentials = true
       this.express.use(cors({ origin, credentials }))
     }
+  }
+
+  private setAuthMiddlewares(avoidablePaths: string[]) {
+    const searchTokenMiddleware = Container.get(SearchTokenMiddleware)
+    this.express.use(
+      errorCatcher(
+        conditionalMiddleware(
+          searchTokenMiddleware.dispatch.bind(searchTokenMiddleware),
+          avoidablePaths,
+        ),
+      ),
+    )
+
+    const authMiddleware = Container.get<BaseAuthMiddleware>(AuthMiddleware)
+    this.express.use(
+      errorCatcher(
+        conditionalMiddleware(
+          authMiddleware.verify.bind(authMiddleware),
+          avoidablePaths,
+        ),
+      ),
+    )
   }
 }
