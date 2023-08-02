@@ -1,15 +1,15 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-namespace Requests {
+declare namespace Requests {
   interface RegisterUser extends Express.Request {
-    body: RegisterUserDto
+    body: import('shared').RegisterUserDto
   }
 
   interface LogInUser extends Express.Request {
-    body: LogInUserDto
+    body: import('shared').LogInUserDto
   }
 
   interface WithUser extends Express.Request {
-    user?: IUser
+    user?: import('@database/models').IUser
   }
 
   interface Logout extends WithUser {
