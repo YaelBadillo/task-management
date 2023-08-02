@@ -1,16 +1,21 @@
+import { ObjectId } from 'mongoose'
 import { LogInUserDto, RegisterUserDto } from 'shared'
 import { Inject, Service } from 'typedi'
 
-import { UserRepository } from '@database/repositories'
+import { TokenRepository, UserRepository } from '@database/repositories'
 import { Encrypter } from '@utils/encrypter'
 import { UserModel } from '@database/models'
-import { BadRequestException } from '@shared/exceptions'
+import {
+  BadRequestException,
+  InternalServerErrorException,
+} from '@shared/exceptions'
 import { Jwt } from '@utils/jwt'
 
 @Service()
-export class UserService {
+export class AuthService {
   constructor(
     private readonly userRepository: UserRepository,
+    private readonly tokenRepository: TokenRepository,
     @Inject('jsonwebtoken.jwt') private readonly jwt: Jwt,
     @Inject('bcrypt.encrypter') private readonly encrypter: Encrypter,
   ) {}
@@ -44,8 +49,23 @@ export class UserService {
     if (!arePasswordsEqual)
       throw new BadRequestException('Incorrect password', 'password')
 
-    const token = this.jwt.sign(user.username)
+    let token: string | undefined = (
+      await this.tokenRepository.findOneByUserId(user._id)
+    )?.token
+    if (!token) {
+      token = this.jwt.sign(user.username)
+      await this.tokenRepository.register(token, user._id)
+    }
 
     return token
+  }
+
+  async logOut(token: string, userId: ObjectId): Promise<void> {
+    const { acknowledged: isTokenDeleted } =
+      await this.tokenRepository.deleteOneByTokenAndUserId(token, userId)
+    if (!isTokenDeleted)
+      throw new InternalServerErrorException(
+        'An unexpected error ocurred while logging out.',
+      )
   }
 }

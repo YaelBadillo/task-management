@@ -2,7 +2,7 @@ import Container from 'typedi'
 
 import { config } from '@config'
 import { WinstonLogger } from '@utils/logger'
-import { UserModel } from '@database/models'
+import { TokenModel, UserModel } from '@database/models'
 import { BcryptEncrypter } from '@utils/encrypter'
 import { Jwt } from '@utils/jwt'
 
@@ -12,6 +12,7 @@ const winstonLogger = Container.get<WinstonLogger>(WinstonLogger)
 Container.set('winston.logger', winstonLogger)
 
 Container.set('user.model', UserModel)
+Container.set('token.model', TokenModel)
 
 const bcryptEncrypter = Container.get<BcryptEncrypter>(BcryptEncrypter)
 Container.set('bcrypt.encrypter', bcryptEncrypter)

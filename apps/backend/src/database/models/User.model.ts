@@ -1,9 +1,10 @@
-import { Schema, model } from 'mongoose'
+import { ObjectId, Schema, model } from 'mongoose'
 import { UserDto } from 'shared'
 
-import { Model } from '@database/models/Model.interface'
+import { Model } from '@database/models'
 
 export interface IUser {
+  _id?: ObjectId
   username: string
   password: string
   createdAt?: Date

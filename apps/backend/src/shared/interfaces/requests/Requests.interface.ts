@@ -14,3 +14,11 @@ export interface LogInUserRequest extends Request {
 export interface RequestWithUser extends Request {
   user?: IUser
 }
+
+export interface LogoutRequest extends RequestWithUser {
+  cookies: AccessTokenCookie
+}
+
+type AccessTokenCookie = {
+  access_token?: string
+}

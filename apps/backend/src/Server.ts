@@ -16,6 +16,7 @@ import { BaseErrorHandler, ErrorHandler } from '@utils/error-handler'
 import { errorCatcher } from '@utils/error-catcher'
 import { conditionalMiddleware } from '@utils/conditional-middleware'
 import { AuthMiddleware, BaseAuthMiddleware } from '@middlewares/auth'
+import { SearchTokenMiddleware } from '@middlewares/search-token'
 
 export class Server {
   private readonly express: Express
@@ -34,16 +35,8 @@ export class Server {
     )
     this.setDevCors()
 
-    const authMiddleware = Container.get<BaseAuthMiddleware>(AuthMiddleware)
-    const avoidablePaths = ['auth']
-    this.express.use(
-      errorCatcher(
-        conditionalMiddleware(
-          authMiddleware.verify.bind(authMiddleware),
-          avoidablePaths,
-        ),
-      ),
-    )
+    const avoidablePaths = ['login', 'sign-up']
+    this.setAuthMiddlewares(avoidablePaths)
 
     registerRoutes(this.express)
 
@@ -96,5 +89,27 @@ export class Server {
       const credentials = true
       this.express.use(cors({ origin, credentials }))
     }
+  }
+
+  private setAuthMiddlewares(avoidablePaths: string[]) {
+    const searchTokenMiddleware = Container.get(SearchTokenMiddleware)
+    this.express.use(
+      errorCatcher(
+        conditionalMiddleware(
+          searchTokenMiddleware.dispatch.bind(searchTokenMiddleware),
+          avoidablePaths,
+        ),
+      ),
+    )
+
+    const authMiddleware = Container.get<BaseAuthMiddleware>(AuthMiddleware)
+    this.express.use(
+      errorCatcher(
+        conditionalMiddleware(
+          authMiddleware.verify.bind(authMiddleware),
+          avoidablePaths,
+        ),
+      ),
+    )
   }
 }
