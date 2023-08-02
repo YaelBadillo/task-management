@@ -5,7 +5,7 @@ import { Service } from 'typedi'
 
 @Service()
 export class StaticController {
-  serve(req: Request, res: Response) {
+  serve(_req: Request, res: Response) {
     return res.sendFile(
       path.join(__dirname, '../../../', 'frontend/dist/index.html'),
     )
