@@ -40,4 +40,12 @@ export class TokenRepository extends MongooseRepository<Token> {
       throw new InternalServerErrorException('Token could not be deleted.')
     }
   }
+  async findOneByToken(token: string): Promise<Token> {
+    try {
+      const foundToken = await this.model.findOne({ token })
+      return foundToken
+    } catch (error) {
+      throw new InternalServerErrorException('Token could not be found.')
+    }
+  }
 }
