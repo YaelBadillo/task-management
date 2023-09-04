@@ -3,6 +3,7 @@ import httpStatus from 'http-status'
 import { Service } from 'typedi'
 
 import { AuthService } from '@services'
+import { AuthCookies } from '@shared/constants'
 
 @Service()
 export class AuthController {
@@ -20,8 +21,8 @@ export class AuthController {
     const httpOnly = true
 
     res
-      .cookie('access_token', accessToken, { httpOnly })
-      .cookie('authenticated', authenticated)
+      .cookie(AuthCookies.ACCESS_TOKEN, accessToken, { httpOnly })
+      .cookie(AuthCookies.AUTHENTICATED, authenticated)
       .status(httpStatus.OK)
       .send()
   }
@@ -30,8 +31,8 @@ export class AuthController {
     const accessToken = cookies.access_token
     await this.authService.logOut(accessToken, user._id)
 
-    Object.keys(cookies).forEach(cookie => {
-      res.clearCookie(cookie)
+    Object.values(AuthCookies).forEach(authCookie => {
+      res.clearCookie(authCookie)
     })
 
     res.status(httpStatus.OK).send()
