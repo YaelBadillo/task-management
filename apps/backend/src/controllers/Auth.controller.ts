@@ -3,7 +3,7 @@ import httpStatus from 'http-status'
 import { Service } from 'typedi'
 
 import { AuthService } from '@services'
-import { AuthCookies } from '@shared/constants'
+import { AUTHENTICATED, AuthCookies, HTTP_ONLY } from '@shared/constants/Auth'
 
 @Service()
 export class AuthController {
@@ -17,12 +17,10 @@ export class AuthController {
 
   async logIn(req: Requests.LogInUser, res: Response) {
     const accessToken = await this.authService.logIn(req.body)
-    const authenticated = true
-    const httpOnly = true
 
     res
-      .cookie(AuthCookies.ACCESS_TOKEN, accessToken, { httpOnly })
-      .cookie(AuthCookies.AUTHENTICATED, authenticated)
+      .cookie(AuthCookies.ACCESS_TOKEN, accessToken, { httpOnly: HTTP_ONLY })
+      .cookie(AuthCookies.AUTHENTICATED, AUTHENTICATED)
       .status(httpStatus.OK)
       .send()
   }
