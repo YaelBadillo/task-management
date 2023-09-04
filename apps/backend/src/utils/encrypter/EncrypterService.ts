@@ -1,10 +1,10 @@
 import { Service } from 'typedi'
 import * as bcrypt from 'bcrypt'
 
-import { Encrypter } from '@utils/encrypter'
+import { BaseEncrypter } from '@utils/encrypter'
 
 @Service()
-export class BcryptEncrypter extends Encrypter {
+export class EncrypterService extends BaseEncrypter {
   private readonly bcrypt = bcrypt
 
   encrypt(password: string): Promise<string> {
