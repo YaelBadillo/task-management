@@ -3,7 +3,7 @@ import { LogInUserDto, RegisterUserDto } from 'shared'
 import { Inject, Service } from 'typedi'
 
 import { TokenRepository, UserRepository } from '@database/repositories'
-import { EncrypterService } from '@utils/encrypter'
+import { EncrypterService } from '@services'
 import { UserModel } from '@database/models'
 import {
   BadRequestException,

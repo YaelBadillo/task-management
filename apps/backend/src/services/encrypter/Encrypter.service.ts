@@ -1,7 +1,7 @@
 import { Service } from 'typedi'
 import * as bcrypt from 'bcrypt'
 
-import { BaseEncrypter } from '@utils/encrypter'
+import { BaseEncrypter } from '@services/encrypter/BaseEncrypter'
 
 @Service()
 export class EncrypterService extends BaseEncrypter {
@@ -14,6 +14,7 @@ export class EncrypterService extends BaseEncrypter {
       throw new Error('Password could not be encrypted')
     }
   }
+
   compare(password: string, hashedPassword: string): Promise<boolean> {
     try {
       return this.bcrypt.compare(password, hashedPassword)
