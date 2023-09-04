@@ -27,9 +27,8 @@ export class AuthController {
   }
 
   async logOut({ cookies, user }: Requests.Logout, res: Response) {
-    const { access_token: accessToken } = cookies
-    const { _id: userId } = user
-    await this.authService.logOut(accessToken, userId)
+    const accessToken = cookies.access_token
+    await this.authService.logOut(accessToken, user._id)
 
     Object.keys(cookies).forEach(cookie => {
       res.clearCookie(cookie)
