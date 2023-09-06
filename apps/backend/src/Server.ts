@@ -43,7 +43,7 @@ export class Server {
     this.express.use(express.static(STATIC_PATH))
     this.setDevCors()
 
-    const avoidablePaths = ['login', 'sign-up']
+    const avoidablePaths = ['login', 'sign-up', '/']
     this.setAuthMiddlewares(avoidablePaths)
 
     registerRoutes(this.express)
