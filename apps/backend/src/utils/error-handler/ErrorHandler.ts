@@ -7,6 +7,7 @@ import { Config } from 'convict'
 import { BaseErrorHandler } from '@utils/error-handler'
 import { Logger } from '@services'
 import { ConfigSchema } from '@config'
+import { ENV, environments } from '@shared/constants/env'
 
 @Service()
 export class ErrorHandler extends BaseErrorHandler {
@@ -30,7 +31,8 @@ export class ErrorHandler extends BaseErrorHandler {
   }
 
   error(err: Error, _req: Request, res: Response, _next: NextFunction) {
-    if (this.config.get('env') === 'development') console.error(err.stack)
+    const env = this.config.get(ENV)
+    if (env === environments.DEVELOPMENT) console.error(err.stack)
 
     return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
       status: httpStatus.INTERNAL_SERVER_ERROR,
