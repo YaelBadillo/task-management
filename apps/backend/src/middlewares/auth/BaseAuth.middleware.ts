@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
 
-import { Jwt } from '@utils/jwt'
+import { JwtService } from '@utils/jwt'
 import { BadRequestException } from '@shared/exceptions'
 
 interface RequestWithUser extends Request {
@@ -8,7 +8,7 @@ interface RequestWithUser extends Request {
 }
 
 export abstract class BaseAuthMiddleware {
-  protected abstract readonly jwt: Jwt
+  protected abstract readonly jwtService: JwtService
 
   async verify(req: RequestWithUser, res: Response, next: NextFunction) {
     const accessToken = req.cookies?.access_token
@@ -19,7 +19,7 @@ export abstract class BaseAuthMiddleware {
 
     let decoded: unknown
     try {
-      decoded = await this.jwt.verify(accessToken)
+      decoded = await this.jwtService.verify(accessToken)
     } catch (error) {
       this.deauthenticate(res)
 

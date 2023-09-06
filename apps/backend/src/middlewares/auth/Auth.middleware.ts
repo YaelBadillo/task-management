@@ -1,14 +1,14 @@
-import { Inject, Service } from 'typedi'
+import { Service } from 'typedi'
 
 import { UserRepository } from '@database/repositories'
 import { UnauthorizedException } from '@shared/exceptions'
-import { Jwt } from '@utils/jwt'
+import { JwtService } from '@utils/jwt'
 import { BaseAuthMiddleware } from '@middlewares/auth/BaseAuth.middleware'
 
 @Service()
 export class AuthMiddleware extends BaseAuthMiddleware {
   constructor(
-    @Inject('jsonwebtoken.jwt') protected readonly jwt: Jwt,
+    protected readonly jwtService: JwtService,
     private readonly userRepository: UserRepository,
   ) {
     super()

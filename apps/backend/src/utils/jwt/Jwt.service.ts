@@ -16,7 +16,7 @@ const ErrorNames = {
 }
 
 @Service()
-export class Jwt extends BaseJwt {
+export class JwtService extends BaseJwt {
   private readonly jwt = jwt
 
   constructor(@Inject('config') private readonly config: Config<ConfigSchema>) {

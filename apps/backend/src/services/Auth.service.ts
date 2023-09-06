@@ -1,6 +1,6 @@
 import { ObjectId } from 'mongoose'
 import { LogInUserDto, RegisterUserDto } from 'shared'
-import { Inject, Service } from 'typedi'
+import { Service } from 'typedi'
 
 import { TokenRepository, UserRepository } from '@database/repositories'
 import { EncrypterService } from '@services'
@@ -9,14 +9,14 @@ import {
   BadRequestException,
   InternalServerErrorException,
 } from '@shared/exceptions'
-import { Jwt } from '@utils/jwt'
+import { JwtService } from '@utils/jwt'
 
 @Service()
 export class AuthService {
   constructor(
     private readonly userRepository: UserRepository,
     private readonly tokenRepository: TokenRepository,
-    @Inject('jsonwebtoken.jwt') private readonly jwt: Jwt,
+    private readonly jwtService: JwtService,
     private readonly encrypterService: EncrypterService,
   ) {}
 
@@ -53,7 +53,7 @@ export class AuthService {
       await this.tokenRepository.findOneByUserId(user._id)
     )?.token
     if (!token) {
-      token = this.jwt.sign(user.username)
+      token = this.jwtService.sign(user.username)
       await this.tokenRepository.register(token, user._id)
     }
 
