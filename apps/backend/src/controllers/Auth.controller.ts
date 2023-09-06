@@ -3,7 +3,7 @@ import httpStatus from 'http-status'
 import { Service } from 'typedi'
 
 import { AuthService } from '@services'
-import { AUTHENTICATED, AuthCookies, HTTP_ONLY } from '@shared/constants/Auth'
+import { AUTHENTICATED, AuthCookies, HTTP_ONLY } from '@shared/constants/auth'
 
 @Service()
 export class AuthController {
