@@ -1,7 +1,9 @@
 import convict from 'convict'
 
+import { EnvKeys, Envs } from '@shared/constants/env'
+
 export type ConfigSchema = {
-  env: string
+  env: EnvKeys
   port: number
   mongodb: {
     uri: string
@@ -17,8 +19,8 @@ export type ConfigSchema = {
 export const config = convict<ConfigSchema>({
   env: {
     doc: 'The application environment.',
-    format: ['production', 'development', 'test'],
-    default: 'development',
+    format: [Object.values(Envs)],
+    default: Envs.DEVELOPMENT,
     env: 'NODE_ENV',
   },
   port: {
