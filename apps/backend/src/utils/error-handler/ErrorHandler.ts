@@ -8,7 +8,7 @@ import { Logger } from '@utils/logger'
 
 @Service()
 export class ErrorHandler extends BaseErrorHandler {
-  constructor(@Inject('winston.logger') protected readonly logger: Logger) {
+  constructor(@Inject('logger.service') protected readonly logger: Logger) {
     super()
   }
 

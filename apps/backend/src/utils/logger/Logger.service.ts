@@ -10,7 +10,7 @@ enum Levels {
 }
 
 @Service()
-export class WinstonLogger implements Logger {
+export class LoggerService implements Logger {
   private readonly logger: WinstonLoggerType
 
   constructor() {

@@ -9,7 +9,7 @@ import Container from 'typedi'
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
 
-import { Logger, WinstonLogger } from '@utils/logger'
+import { Logger, LoggerService } from '@utils/logger'
 import { registerRoutes } from '@routes'
 import { ConfigSchema } from '@config'
 import { BaseErrorHandler, ErrorHandler } from '@utils/error-handler'
@@ -25,7 +25,7 @@ export class Server {
 
   constructor(private readonly config: Config<ConfigSchema>) {
     this.express = express()
-    this.logger = Container.get(WinstonLogger)
+    this.logger = Container.get(LoggerService)
 
     this.setRequestLogger()
     this.express.use(bodyParser.json())
