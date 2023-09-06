@@ -1,2 +1,2 @@
-export * from './Auth.service'
 export * from './encrypter'
+export * from './Auth.service'
