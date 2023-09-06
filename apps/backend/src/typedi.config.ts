@@ -1,7 +1,7 @@
 import Container from 'typedi'
 
 import { config } from '@config'
-import { LoggerService } from '@utils/logger'
+import { LoggerService } from '@services'
 import { TokenModel, UserModel } from '@database/models'
 
 Container.set('config', config)

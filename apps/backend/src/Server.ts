@@ -9,7 +9,7 @@ import Container from 'typedi'
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
 
-import { Logger, LoggerService } from '@utils/logger'
+import { Logger, LoggerService } from '@services'
 import { registerRoutes } from '@routes'
 import { ConfigSchema } from '@config'
 import { BaseErrorHandler, ErrorHandler } from '@utils/error-handler'

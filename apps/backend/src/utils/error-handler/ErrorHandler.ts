@@ -4,7 +4,7 @@ import { HttpException } from 'shared'
 import { Inject, Service } from 'typedi'
 
 import { BaseErrorHandler } from '@utils/error-handler'
-import { Logger } from '@utils/logger'
+import { Logger } from '@services'
 
 @Service()
 export class ErrorHandler extends BaseErrorHandler {
