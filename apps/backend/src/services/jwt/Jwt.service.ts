@@ -2,7 +2,7 @@ import * as jwt from 'jsonwebtoken'
 import { Config } from 'convict'
 import { Inject, Service } from 'typedi'
 
-import { BaseJwt } from '@utils/jwt'
+import { BaseJwt } from '@services/jwt'
 import { ConfigSchema } from '@config'
 import {
   InternalServerErrorException,

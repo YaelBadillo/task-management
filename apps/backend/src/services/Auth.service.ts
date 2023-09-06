@@ -3,13 +3,12 @@ import { LogInUserDto, RegisterUserDto } from 'shared'
 import { Service } from 'typedi'
 
 import { TokenRepository, UserRepository } from '@database/repositories'
-import { EncrypterService } from '@services'
+import { EncrypterService, JwtService } from '@services'
 import { UserModel } from '@database/models'
 import {
   BadRequestException,
   InternalServerErrorException,
 } from '@shared/exceptions'
-import { JwtService } from '@utils/jwt'
 
 @Service()
 export class AuthService {

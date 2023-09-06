@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
 
-import { JwtService } from '@utils/jwt'
+import { JwtService } from '@services'
 import { BadRequestException } from '@shared/exceptions'
 
 interface RequestWithUser extends Request {

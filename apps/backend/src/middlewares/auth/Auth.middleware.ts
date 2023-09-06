@@ -2,7 +2,7 @@ import { Service } from 'typedi'
 
 import { UserRepository } from '@database/repositories'
 import { UnauthorizedException } from '@shared/exceptions'
-import { JwtService } from '@utils/jwt'
+import { JwtService } from '@services'
 import { BaseAuthMiddleware } from '@middlewares/auth/BaseAuth.middleware'
 
 @Service()
