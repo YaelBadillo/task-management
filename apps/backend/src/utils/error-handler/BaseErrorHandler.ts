@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
 
-import { Logger } from '@utils/logger'
+import { Logger } from '@services'
 
 export abstract class BaseErrorHandler {
   protected abstract readonly logger: Logger

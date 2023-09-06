@@ -2,7 +2,7 @@ import * as jwt from 'jsonwebtoken'
 import { Config } from 'convict'
 import { Inject, Service } from 'typedi'
 
-import { BaseJwt } from '@utils/jwt'
+import { BaseJwt } from '@services/jwt'
 import { ConfigSchema } from '@config'
 import {
   InternalServerErrorException,
@@ -16,7 +16,7 @@ const ErrorNames = {
 }
 
 @Service()
-export class Jwt extends BaseJwt {
+export class JwtService extends BaseJwt {
   private readonly jwt = jwt
 
   constructor(@Inject('config') private readonly config: Config<ConfigSchema>) {

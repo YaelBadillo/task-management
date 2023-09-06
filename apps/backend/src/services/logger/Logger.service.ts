@@ -1,7 +1,7 @@
 import winston, { Logger as WinstonLoggerType } from 'winston'
 import { Service } from 'typedi'
 
-import { Logger } from '@utils/logger'
+import { Logger } from '@services'
 
 enum Levels {
   DEBUG = 'debug',
@@ -10,7 +10,7 @@ enum Levels {
 }
 
 @Service()
-export class WinstonLogger implements Logger {
+export class LoggerService implements Logger {
   private readonly logger: WinstonLoggerType
 
   constructor() {

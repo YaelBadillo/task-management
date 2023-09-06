@@ -1,5 +1,4 @@
 import http from 'http'
-import path from 'path'
 
 import express, { Express } from 'express'
 import { Config } from 'convict'
@@ -9,7 +8,7 @@ import Container from 'typedi'
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
 
-import { Logger, WinstonLogger } from '@utils/logger'
+import { Logger, LoggerService } from '@services'
 import { registerRoutes } from '@routes'
 import { ConfigSchema } from '@config'
 import { BaseErrorHandler, ErrorHandler } from '@utils/error-handler'
@@ -17,25 +16,34 @@ import { errorCatcher } from '@utils/error-catcher'
 import { conditionalMiddleware } from '@utils/conditional-middleware'
 import { AuthMiddleware, BaseAuthMiddleware } from '@middlewares/auth'
 import { SearchTokenMiddleware } from '@middlewares/search-token'
+import { STATIC_PATH } from '@shared/constants/static'
+import { ENV, EnvKeys, Envs, PORT } from '@shared/constants/env'
+import {
+  DEV_CORS_CREDENTIALS,
+  DEV_CORS_ORIGIN,
+} from '@shared/constants/dev-cors'
+import { REQUEST_LOGGER_FORMATS } from '@shared/constants/request-logger-formats'
 
 export class Server {
+  private readonly env: EnvKeys
+  private readonly port: number
   private readonly express: Express
   private readonly logger: Logger
   private httpServer?: http.Server
 
   constructor(private readonly config: Config<ConfigSchema>) {
+    this.env = this.config.get(ENV)
+    this.port = this.config.get(PORT)
     this.express = express()
-    this.logger = Container.get(WinstonLogger)
+    this.logger = Container.get(LoggerService)
 
     this.setRequestLogger()
     this.express.use(bodyParser.json())
     this.express.use(cookieParser())
-    this.express.use(
-      express.static(path.join(__dirname, '../../', 'frontend/dist')),
-    )
+    this.express.use(express.static(STATIC_PATH))
     this.setDevCors()
 
-    const avoidablePaths = ['login', 'sign-up']
+    const avoidablePaths = ['login', 'sign-up', '/']
     this.setAuthMiddlewares(avoidablePaths)
 
     registerRoutes(this.express)
@@ -48,8 +56,8 @@ export class Server {
 
   listen(): Promise<void> {
     return new Promise(resolve => {
-      this.httpServer = this.express.listen(this.config.get('port'), () => {
-        this.logger.info(`Server listening on port: ${this.config.get('port')}`)
+      this.httpServer = this.express.listen(this.port, () => {
+        this.logger.info(`Server listening on port: ${this.port}`)
 
         return resolve()
       })
@@ -77,17 +85,20 @@ export class Server {
   }
 
   private setRequestLogger() {
-    const env = this.config.get('env')
-    const devFormat = 'dev'
-    const tinyFormat = 'tiny'
-    this.express.use(morgan(env === 'development' ? devFormat : tinyFormat))
+    this.express.use(
+      morgan(
+        this.env === Envs.DEVELOPMENT
+          ? REQUEST_LOGGER_FORMATS.DEV
+          : REQUEST_LOGGER_FORMATS.TINY,
+      ),
+    )
   }
 
   private setDevCors() {
-    if (this.config.get('env') === 'development') {
-      const origin = 'http://localhost:5173'
-      const credentials = true
-      this.express.use(cors({ origin, credentials }))
+    if (this.env === Envs.DEVELOPMENT) {
+      this.express.use(
+        cors({ origin: DEV_CORS_ORIGIN, credentials: DEV_CORS_CREDENTIALS }),
+      )
     }
   }
 

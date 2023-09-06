@@ -2,13 +2,19 @@ import { NextFunction, Request, Response } from 'express'
 import httpStatus from 'http-status'
 import { HttpException } from 'shared'
 import { Inject, Service } from 'typedi'
+import { Config } from 'convict'
 
 import { BaseErrorHandler } from '@utils/error-handler'
-import { Logger } from '@utils/logger'
+import { Logger } from '@services'
+import { ConfigSchema } from '@config'
+import { ENV, Envs } from '@shared/constants/env'
 
 @Service()
 export class ErrorHandler extends BaseErrorHandler {
-  constructor(@Inject('winston.logger') protected readonly logger: Logger) {
+  constructor(
+    @Inject('logger.service') protected readonly logger: Logger,
+    @Inject('config') private readonly config: Config<ConfigSchema>,
+  ) {
     super()
   }
 
@@ -25,6 +31,9 @@ export class ErrorHandler extends BaseErrorHandler {
   }
 
   error(err: Error, _req: Request, res: Response, _next: NextFunction) {
+    const env = this.config.get(ENV)
+    if (env === Envs.DEVELOPMENT) console.error(err.stack)
+
     return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
       status: httpStatus.INTERNAL_SERVER_ERROR,
       message: err.message,

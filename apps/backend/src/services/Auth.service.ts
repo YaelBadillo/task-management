@@ -1,23 +1,22 @@
 import { ObjectId } from 'mongoose'
 import { LogInUserDto, RegisterUserDto } from 'shared'
-import { Inject, Service } from 'typedi'
+import { Service } from 'typedi'
 
 import { TokenRepository, UserRepository } from '@database/repositories'
-import { Encrypter } from '@utils/encrypter'
+import { EncrypterService, JwtService } from '@services'
 import { UserModel } from '@database/models'
 import {
   BadRequestException,
   InternalServerErrorException,
 } from '@shared/exceptions'
-import { Jwt } from '@utils/jwt'
 
 @Service()
 export class AuthService {
   constructor(
     private readonly userRepository: UserRepository,
     private readonly tokenRepository: TokenRepository,
-    @Inject('jsonwebtoken.jwt') private readonly jwt: Jwt,
-    @Inject('bcrypt.encrypter') private readonly encrypter: Encrypter,
+    private readonly jwtService: JwtService,
+    private readonly encrypterService: EncrypterService,
   ) {}
 
   async registerUser({ username, password }: RegisterUserDto) {
@@ -28,7 +27,7 @@ export class AuthService {
         'username',
       )
 
-    const hashedPassword = await this.encrypter.encrypt(password)
+    const hashedPassword = await this.encrypterService.encrypt(password)
 
     user = await this.userRepository.register({
       username,
@@ -42,7 +41,7 @@ export class AuthService {
     const user = await this.userRepository.findOneByUsername(username)
     if (!user) throw new BadRequestException(`Incorrect user`, 'username')
 
-    const arePasswordsEqual = await this.encrypter.compare(
+    const arePasswordsEqual = await this.encrypterService.compare(
       password,
       user.password,
     )
@@ -53,7 +52,7 @@ export class AuthService {
       await this.tokenRepository.findOneByUserId(user._id)
     )?.token
     if (!token) {
-      token = this.jwt.sign(user.username)
+      token = this.jwtService.sign(user.username)
       await this.tokenRepository.register(token, user._id)
     }
 

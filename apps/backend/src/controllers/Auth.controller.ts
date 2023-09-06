@@ -1,43 +1,36 @@
 import { Response } from 'express'
-import { Service } from 'typedi'
 import httpStatus from 'http-status'
+import { Service } from 'typedi'
 
 import { AuthService } from '@services'
-import {
-  LogInUserRequest,
-  LogoutRequest,
-  RegisterUserRequest,
-} from '@shared/interfaces/requests'
+import { AUTHENTICATED, AuthCookies, HTTP_ONLY } from '@shared/constants/auth'
 
 @Service()
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  async signUp(req: RegisterUserRequest, res: Response) {
+  async signUp(req: Requests.RegisterUser, res: Response) {
     await this.authService.registerUser(req.body)
 
     return res.status(httpStatus.CREATED).send()
   }
 
-  async logIn(req: LogInUserRequest, res: Response) {
+  async logIn(req: Requests.LogInUser, res: Response) {
     const accessToken = await this.authService.logIn(req.body)
-    const authenticated = true
-    const httpOnly = true
 
     res
-      .cookie('access_token', accessToken, { httpOnly })
-      .cookie('authenticated', authenticated)
+      .cookie(AuthCookies.ACCESS_TOKEN, accessToken, { httpOnly: HTTP_ONLY })
+      .cookie(AuthCookies.AUTHENTICATED, AUTHENTICATED)
       .status(httpStatus.OK)
       .send()
   }
 
-  async logOut({ cookies, user }: LogoutRequest, res: Response) {
-    const { access_token: accessToken } = cookies
-    const { _id: userId } = user
-    await this.authService.logOut(accessToken, userId)
+  async logOut({ cookies, user }: Requests.Logout, res: Response) {
+    const accessToken = cookies.access_token
+    await this.authService.logOut(accessToken, user._id)
 
-    Object.keys(cookies).forEach(cookie => {
-      res.clearCookie(cookie)
+    Object.values(AuthCookies).forEach(authCookie => {
+      res.clearCookie(authCookie)
     })
 
     res.status(httpStatus.OK).send()
