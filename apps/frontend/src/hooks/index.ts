@@ -1,4 +1,4 @@
-export * from './useAsync'
+export * from './use-async'
 export * from './useFetch'
 export * from './use-form'
 export * from './useLocalStorage'
