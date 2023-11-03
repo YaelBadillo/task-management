@@ -7,13 +7,14 @@ import {
   SignupPasswordInput,
   SignupUsernameInput,
 } from '@signup/signup.const'
+import { AsyncStatus } from '@hooks'
 
 export const Signup = () => {
   const { form, status } = useSignup()
   const { fields, hasError, handleSubmit, handleBlur, handleChange } = form
   const { username, password, passwordConfirm } = fields
 
-  if (status === 'pending') return <Loading />
+  if (status === AsyncStatus.PENDING) return <Loading />
 
   return (
     <>

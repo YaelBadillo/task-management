@@ -2,6 +2,8 @@ import { Type } from '@components/auth-form'
 
 export const SIGNUP_URL = 'http://localhost:3000/api/auth/sign-up'
 
+export const SIGNUP_PATH = '/auth/signup'
+
 interface Input {
   type: Type
   placeholder: string

@@ -2,13 +2,15 @@ import { useEffect } from 'react'
 
 import { useNavigate } from 'react-router-dom'
 
-import { useForm } from '@hooks'
+import { AsyncStatus, useForm } from '@hooks'
 import { validate } from '@utils/validate'
 import { SignupSchema } from '@signup/SignupSchema'
+import { SIGNUP_URL } from '@signup/signup.const'
+import { LOGIN_PATH } from '@pages/login'
 
 export const useSignup = () => {
   const { form, status } = useForm({
-    url: 'http://localhost:3000/api/auth/sign-up',
+    url: SIGNUP_URL,
     initialValues: {
       username: '',
       password: '',
@@ -24,7 +26,7 @@ export const useSignup = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (status === 'success') navigate('/auth/login')
+    if (status === AsyncStatus.SUCCESS) navigate(LOGIN_PATH)
   }, [status, navigate])
 
   return { form, status }
