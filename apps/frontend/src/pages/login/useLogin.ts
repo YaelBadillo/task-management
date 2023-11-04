@@ -5,10 +5,12 @@ import { useNavigate } from 'react-router-dom'
 import { useForm } from '@hooks'
 import { validate } from '@utils/validate'
 import { LoginSchema } from '@login/LoginSchema'
+import { LOGIN_PATH } from '@login/login.const'
+import { SIGNUP_PATH } from '@pages/signup'
 
 export const useLogin = () => {
   const { form, status } = useForm({
-    url: 'http://localhost:3000/api/auth/login',
+    url: LOGIN_PATH,
     initialValues: {
       username: '',
       password: '',
@@ -23,7 +25,7 @@ export const useLogin = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (status === 'success') navigate('/dashboard', { replace: true })
+    if (status === 'success') navigate(SIGNUP_PATH, { replace: true })
   }, [status, navigate])
 
   return { form, status }
